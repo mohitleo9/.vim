@@ -47,7 +47,7 @@
     call add(s:settings.plugin_groups, 'navigation')
     call add(s:settings.plugin_groups, 'unite')
     call add(s:settings.plugin_groups, 'autocomplete')
-    " call add(s:settings.plugin_groups, 'textobj')
+    call add(s:settings.plugin_groups, 'textobj')
     call add(s:settings.plugin_groups, 'misc')
     if s:is_windows
       call add(s:settings.plugin_groups, 'windows')
@@ -129,7 +129,7 @@
 
 " base configuration {{{
   set timeoutlen=300                                  "mapping timeout
-  set ttimeoutlen=50                                  "keycode timeout
+  set ttimeoutlen=70                                  "keycode timeout default set here was 50
 
   set mouse=a                                         "enable mouse
   set mousehide                                       "hide when characters are typed
@@ -263,10 +263,10 @@
     set guioptions+=t                                 "tear off menu items
     set guioptions-=T                                 "toolbar icons
 
-    if s:is_macvim
-      set gfn=Ubuntu_Mono:h14
-      set transparency=2
-    endif
+    " if s:is_macvim
+      " set gfn=Ubuntu_Mono:h14
+      " set transparency=2
+    " endif
 
     if s:is_windows
       set gfn=Ubuntu_Mono:h10
@@ -297,10 +297,11 @@
     NeoBundle 'matchit.zip'
     NeoBundle 'bling/vim-airline' "{{{
       let g:airline#extensions#tabline#enabled = 1
-      let g:airline#extensions#tabline#left_sep=' '
-      let g:airline#extensions#tabline#left_alt_sep='¦'
+      let g:airline_powerline_fonts = 1
+      let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
+    NeoBundle 'flazz/vim-colorschemes'
     NeoBundle 'tpope/vim-repeat'
     NeoBundle 'tpope/vim-dispatch'
     NeoBundle 'tpope/vim-eunuch'
@@ -393,6 +394,7 @@
       nnoremap <silent> <leader>gd :Gdiff<CR>
       nnoremap <silent> <leader>gc :Gcommit<CR>
       nnoremap <silent> <leader>gb :Gblame<CR>
+      nnoremap <silent> <leader>gg :Ggrep<cword><CR>
       nnoremap <silent> <leader>gl :Glog<CR>
       nnoremap <silent> <leader>gp :Git push<CR>
       nnoremap <silent> <leader>gw :Gwrite<CR>
@@ -496,13 +498,33 @@
       let g:ctrlp_max_height=40
       let g:ctrlp_show_hidden=0
       let g:ctrlp_follow_symlinks=1
+      let g:ctrlp_working_path_mode = 'ra'
       let g:ctrlp_max_files=20000
       let g:ctrlp_cache_dir='~/.vim/.cache/ctrlp'
       let g:ctrlp_reuse_window='startify'
       let g:ctrlp_extensions=['funky']
-      if executable('ag')
-        let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
+
+      let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+
+      " On Windows use "dir" as fallback command.
+      if s:is_windows
+        let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+      elseif executable('ag')
+        let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+      elseif executable('ack')
+        let s:ctrlp_fallback = 'ack %s --nocolor -f'
+      else
+        let s:ctrlp_fallback = 'find %s -type f'
       endif
+      let g:ctrlp_user_command = {
+            \ 'types': {
+            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+            \ },
+            \ 'fallback': s:ctrlp_fallback
+            \ }
 
       nmap \ [ctrlp]
       nnoremap [ctrlp] <nop>
