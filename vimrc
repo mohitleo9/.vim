@@ -52,7 +52,6 @@
     if s:is_windows
       call add(s:settings.plugin_groups, 'windows')
     endif
-
     " exclude all language-specific plugins by default
     if !exists('g:dotvim_settings.plugin_groups_exclude')
       let g:dotvim_settings.plugin_groups_exclude = ['web','javascript','ruby','python','go','scala']
@@ -129,7 +128,7 @@
 
 " base configuration {{{
   set timeoutlen=300                                  "mapping timeout
-  set ttimeoutlen=70                                  "keycode timeout default set here was 50
+  set ttimeoutlen=90                                  "keycode timeout default set here was 50
 
   set mouse=a                                         "enable mouse
   set mousehide                                       "hide when characters are typed
@@ -279,16 +278,16 @@
     if $COLORTERM == 'gnome-terminal'
       set t_Co=256 "why you no tell me correct colors?!?!
     endif
-    if $TERM_PROGRAM == 'iTerm.app'
-      " different cursors for insert vs normal mode
-      if exists('$TMUX')
-        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-      else
-        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-      endif
-    endif
+    " if $TERM_PROGRAM == 'iTerm.app'
+    "   " different cursors for insert vs normal mode
+    "   if exists('$TMUX')
+    "     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    "     let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    "   else
+    "     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    "     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    "   endif
+    " endif
   endif
 "}}}
 
@@ -301,6 +300,7 @@
       let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
+    " NeoBundle 'tpope/vim-sleuth'
     NeoBundle 'flazz/vim-colorschemes'
     NeoBundle 'tpope/vim-repeat'
     NeoBundle 'tpope/vim-dispatch'
@@ -472,8 +472,16 @@
       vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
     "}}}
     NeoBundle 'jiangmiao/auto-pairs'
-    NeoBundle 'justinmk/vim-sneak' "{{{
-      let g:sneak#streak = 1
+    NeoBundle 'Lokaltog/vim-easymotion' "{{{
+    " replace the default search not kidding
+    " use smartcase
+      let g:EasyMotion_smartcase = 1
+      map  / <Plug>(easymotion-sn)
+      omap / <Plug>(easymotion-tn)
+      map  n <Plug>(easymotion-next)
+      map  N <Plug>(easymotion-prev)
+      nmap s <Plug>(easymotion-s2)
+      " let g:sneak#streak = 1
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
@@ -587,13 +595,20 @@
       nnoremap [unite] <nop>
 
       if s:is_windows
-        nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec:! buffer file_mru bookmark<cr><c-u>
-        nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec:!<cr><c-u>
+        nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec:! buffer file_mru bookmark<cr><c-u>
+        nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec:!<cr><c-u>
       else
-        nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! buffer file_mru bookmark<cr><c-u>
-        nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async:!<cr><c-u>
+        nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=mixed buffer:! file_rec/async bookmark<cr><c-u>
+        nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async:!<cr><c-u>
       endif
       nnoremap <silent> [unite]e :<C-u>Unite -buffer-name=recent file_mru<cr>
+
+      " Quick history needs plugin
+      " nnoremap <silent> [unite]; :<C-u>Unite -buffer-name=history history/command command<CR>
+
+      " Quick commands
+      nnoremap <silent> [unite]c :<C-u>Unite -buffer-name=commands command<CR>
+
       nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>
       nnoremap <silent> [unite]l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
       nnoremap <silent> [unite]b :<C-u>Unite -auto-resize -buffer-name=buffers buffer<cr>
@@ -606,7 +621,7 @@
       nnoremap <silent> [unite]a :<C-u>Unite -winheight=10 -auto-preview -buffer-name=airline_themes airline_themes<cr>
     "}}}
     NeoBundleLazy 'ujihisa/unite-colorscheme', {'autoload':{'unite_sources':'colorscheme'}} "{{{
-      nnoremap <silent> [unite]c :<C-u>Unite -winheight=10 -auto-preview -buffer-name=colorschemes colorscheme<cr>
+      " nnoremap <silent> [unite]c :<C-u>Unite -winheight=10 -auto-preview -buffer-name=colorschemes colorscheme<cr>
     "}}}
     NeoBundleLazy 'tsukkee/unite-tag', {'autoload':{'unite_sources':['tag','tag/file']}} "{{{
       nnoremap <silent> [unite]t :<C-u>Unite -auto-resize -buffer-name=tag tag tag/file<cr>
@@ -657,6 +672,7 @@
     NeoBundleLazy 'guns/xterm-color-table.vim', {'autoload':{'commands':'XtermColorTable'}}
     NeoBundle 'chrisbra/vim_faq'
     NeoBundle 'vimwiki'
+    NeoBundle 'rosenfeld/conque-term'
     NeoBundle 'bufkill.vim'
     NeoBundle 'mhinz/vim-startify' "{{{
       let g:startify_session_dir = '~/.vim/.cache/sessions'
@@ -674,15 +690,16 @@
       let g:gist_post_private=1
       let g:gist_show_privates=1
     "}}}
+    "
     NeoBundleLazy 'Shougo/vimshell.vim', {'autoload':{'commands':[ 'VimShell', 'VimShellInteractive' ]}} "{{{
       if s:is_macvim
         let g:vimshell_editor_command='mvim'
       else
         let g:vimshell_editor_command='vim'
       endif
-      let g:vimshell_right_prompt='getcwd()'
-      let g:vimshell_temporary_directory='~/.vim/.cache/vimshell'
-      let g:vimshell_vimshrc_path='~/.vim/vimshrc'
+      " let g:vimshell_right_prompt='getcwd()'
+      " let g:vimshell_temporary_directory='~/.vim/.cache/vimshell'
+      " let g:vimshell_vimshrc_path='~/.vim/vimshrc'
 
       nnoremap <leader>c :VimShell -split<cr>
       nnoremap <leader>cc :VimShell -split<cr>
@@ -738,8 +755,8 @@
   endif
 
   " sane regex {{{
-    nnoremap / /\v
-    vnoremap / /\v
+    " nnoremap / /\v
+    " vnoremap / /\v
     nnoremap ? ?\v
     vnoremap ? ?\v
     nnoremap :s/ :s/\v
@@ -854,8 +871,8 @@
 
 " color schemes {{{
   NeoBundle 'altercation/vim-colors-solarized' "{{{
-    let g:solarized_termcolors=256
-    let g:solarized_termtrans=1
+    " let g:solarized_termcolors=256
+    " let g:solarized_termtrans=1
   "}}}
   NeoBundle 'nanotech/jellybeans.vim'
   NeoBundle 'tomasr/molokai'
