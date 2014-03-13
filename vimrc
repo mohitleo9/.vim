@@ -300,7 +300,7 @@
       let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
-    " NeoBundle 'tpope/vim-sleuth'
+    NeoBundle 'tpope/vim-sleuth'
     NeoBundle 'flazz/vim-colorschemes'
     NeoBundle 'tpope/vim-repeat'
     NeoBundle 'tpope/vim-dispatch'
@@ -358,6 +358,7 @@
     "}}}
     NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
     NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
+    let coffee_lint_options = '-f ~/.vim/bundle/vim-coffee-script/lintRules/coffeelint.json'
     NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
     NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
     NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript','coffee','ls','typescript']}}
