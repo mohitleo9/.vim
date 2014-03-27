@@ -128,7 +128,7 @@
 
 " base configuration {{{
   set timeoutlen=300                                  "mapping timeout
-  set ttimeoutlen=90                                  "keycode timeout default set here was 50
+  set ttimeoutlen=100                                  "keycode timeout default set here was 50
 
   set mouse=a                                         "enable mouse
   set mousehide                                       "hide when characters are typed
@@ -320,7 +320,9 @@
       \ },
     \ }
   endif "}}}
+
   if count(s:settings.plugin_groups, 'web') "{{{
+    NeoBundle 'mustache/vim-mustache-handlebars', {'autoload':{'filetypes':['handlebars']}}
     NeoBundleLazy 'groenewege/vim-less', {'autoload':{'filetypes':['less']}}
     NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload':{'filetypes':['scss','sass']}}
     NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload':{'filetypes':['css','scss','sass']}}
@@ -357,10 +359,14 @@
       nnoremap <leader>fjs :call JsBeautify()<cr>
     "}}}
     NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
-    NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
+    NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}} "{{{
     let coffee_lint_options = '-f ~/.vim/bundle/vim-coffee-script/lintRules/coffeelint.json'
+    " }}}
+
     NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
-    NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
+    NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['javascript','json']}} "{{{
+    let g:vim_json_syntax_conceal = 0
+    " }}}
     NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript','coffee','ls','typescript']}}
   endif "}}}
   if count(s:settings.plugin_groups, 'ruby') "{{{
@@ -413,15 +419,20 @@
     if s:settings.autocomplete_method == 'ycm' "{{{
       NeoBundle 'Valloric/YouCompleteMe', {'vim_version':'7.3.584'} "{{{
         let g:ycm_complete_in_comments_and_strings=1
-        let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-        let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+        nnoremap <leader>jd :YcmCompleter GoTo<CR>
+        let g:ycm_collect_identifiers_from_comments_and_strings = 1
+        " let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+        " let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
         let g:ycm_filetype_blacklist={'unite': 1}
       "}}}
       NeoBundle 'SirVer/ultisnips' "{{{
-        let g:UltiSnipsExpandTrigger="<tab>"
-        let g:UltiSnipsJumpForwardTrigger="<tab>"
-        let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-        let g:UltiSnipsSnippetsDir='~/.vim/snippets'
+        let g:UltiSnipsExpandTrigger = '<CR>'
+        let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+        let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+        " let g:UltiSnipsExpandTrigger="<tab>"
+        " let g:UltiSnipsJumpForwardTrigger="<tab>"
+        " let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+        " let g:UltiSnipsSnippetsDir='~/.vim/snippets'
       "}}}
     else
       NeoBundle 'Shougo/neosnippet-snippets'
@@ -871,6 +882,7 @@
 "}}}
 
 " color schemes {{{
+  NeoBundle 'morhetz/gruvbox'
   NeoBundle 'altercation/vim-colors-solarized' "{{{
     " let g:solarized_termcolors=256
     " let g:solarized_termtrans=1
