@@ -1,4 +1,4 @@
-" vim: fdm=marker ts=2 sts=2 sw=2 fdl=0
+" vim: fdm=marker ts=2 sts=2 sw=2 fdl=9
 
 " detect OS {{{
   let s:is_windows = has('win32') || has('win64')
@@ -128,7 +128,7 @@
 
 " base configuration {{{
   set timeoutlen=300                                  "mapping timeout
-  set ttimeoutlen=100                                  "keycode timeout default set here was 50
+  set ttimeoutlen=50                                  "keycode timeout default set here was 50
 
   set mouse=a                                         "enable mouse
   set mousehide                                       "hide when characters are typed
@@ -426,7 +426,7 @@
         let g:ycm_filetype_blacklist={'unite': 1}
       "}}}
       NeoBundle 'SirVer/ultisnips' "{{{
-        let g:UltiSnipsExpandTrigger = '<CR>'
+        let g:UltiSnipsExpandTrigger = '<C-j>'
         let g:UltiSnipsJumpForwardTrigger = '<C-j>'
         let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
         " let g:UltiSnipsExpandTrigger="<tab>"
@@ -464,6 +464,16 @@
     NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
     NeoBundle 'tpope/vim-endwise'
     NeoBundle 'tpope/vim-speeddating'
+    NeoBundle 't9md/vim-quickhl' "{{{
+      nmap <leader>m <Plug>(quickhl-manual-this)
+      xmap <leader>m <Plug>(quickhl-manual-this)
+      nmap <leader>M <Plug>(quickhl-manual-reset)
+      xmap <leader>M <Plug>(quickhl-manual-reset)
+      " nmap <Space>j <Plug>(quickhl-cword-toggle)
+      " nmap <Space>] <Plug>(quickhl-tag-toggle)
+      " map H <Plug>(operator-quickhl-manual-this-motion)
+      "
+    "}}}
     NeoBundle 'thinca/vim-visualstar'
     NeoBundle 'tomtom/tcomment_vim'
     NeoBundle 'terryma/vim-expand-region'
