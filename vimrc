@@ -360,7 +360,6 @@
     "}}}
     NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
     NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}} "{{{
-    let coffee_lint_options = '-f ~/.vim/bundle/vim-coffee-script/lintRules/coffeelint.json'
     " }}}
 
     NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
@@ -465,6 +464,7 @@
     NeoBundle 'tpope/vim-endwise'
     NeoBundle 'tpope/vim-speeddating'
     NeoBundle 't9md/vim-quickhl' "{{{
+
       nmap <leader>m <Plug>(quickhl-manual-this)
       xmap <leader>m <Plug>(quickhl-manual-this)
       nmap <leader>M <Plug>(quickhl-manual-reset)
@@ -660,20 +660,23 @@
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'indents') "{{{
-    NeoBundle 'nathanaelkane/vim-indent-guides' "{{{
-      let g:indent_guides_start_level=1
-      let g:indent_guides_guide_size=1
-      let g:indent_guides_enable_on_vim_startup=0
-      let g:indent_guides_color_change_percent=3
-      if !has('gui_running')
-        let g:indent_guides_auto_colors=0
-        function! s:indent_set_console_colors()
-          hi IndentGuidesOdd ctermbg=235
-          hi IndentGuidesEven ctermbg=236
-        endfunction
-        autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
-      endif
+    NeoBundle 'Yggdroot/indentLine' "{{{
     "}}}
+
+    " NeoBundle 'nathanaelkane/vim-indent-guides' "{{{
+    "   let g:indent_guides_start_level=1
+    "   let g:indent_guides_guide_size=1
+    "   let g:indent_guides_enable_on_vim_startup=0
+    "   let g:indent_guides_color_change_percent=3
+    "   if !has('gui_running')
+    "     let g:indent_guides_auto_colors=0
+    "     function! s:indent_set_console_colors()
+    "       hi IndentGuidesOdd ctermbg=235
+    "       hi IndentGuidesEven ctermbg=236
+    "     endfunction
+    "     autocmd VimEnter,Colorscheme * call s:indent_set_console_colors()
+    "   endif
+    " "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'textobj') "{{{
     NeoBundle 'kana/vim-textobj-user'
@@ -703,6 +706,7 @@
       nnoremap <F1> :Startify<cr>
     "}}}
     NeoBundle 'scrooloose/syntastic' "{{{
+      let g:syntastic_coffee_coffeelint_args = "-f ~/.vim/bundle/vim-coffee-script/lintRules/coffeelint.json"
       let g:syntastic_error_symbol = '✗'
       let g:syntastic_style_error_symbol = '✠'
       let g:syntastic_warning_symbol = '∆'
