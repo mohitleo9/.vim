@@ -300,9 +300,13 @@
       let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
+    " this plugin overrides the default text objects in vim and first make them multiline and also provides 
+    " some new operators such as , _ etc
+    NeoBundle 'wellle/targets.vim'
     NeoBundle 'tpope/vim-sleuth'
     NeoBundle 'flazz/vim-colorschemes'
     NeoBundle 'tpope/vim-repeat'
+    NeoBundle 'Peeja/vim-cdo'
     NeoBundle 'tpope/vim-dispatch'
     NeoBundle 'tpope/vim-eunuch'
     NeoBundle 'tpope/vim-unimpaired' "{{{
@@ -466,7 +470,6 @@
     NeoBundle 'tpope/vim-endwise'
     NeoBundle 'tpope/vim-speeddating'
     NeoBundle 't9md/vim-quickhl' "{{{
-
       nmap <leader>m <Plug>(quickhl-manual-this)
       xmap <leader>m <Plug>(quickhl-manual-this)
       nmap <leader>M <Plug>(quickhl-manual-reset)
