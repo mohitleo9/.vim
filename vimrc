@@ -363,7 +363,7 @@
       nnoremap <leader>fjs :call JsBeautify()<cr>
     "}}}
     NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
-    NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}} "{{{
+    NeoBundle 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}} "{{{
     " }}}
 
     " NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
@@ -466,7 +466,7 @@
     endif "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'editing') "{{{
-    NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
+    " NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
     NeoBundle 'tpope/vim-endwise'
     NeoBundle 'tpope/vim-speeddating'
     NeoBundle 't9md/vim-quickhl' "{{{
@@ -481,7 +481,7 @@
     "}}}
     NeoBundle 'thinca/vim-visualstar'
     NeoBundle 'tomtom/tcomment_vim'
-    NeoBundle 'terryma/vim-expand-region'
+    " NeoBundle 'terryma/vim-expand-region'
     NeoBundle 'terryma/vim-multiple-cursors'
     NeoBundle 'chrisbra/NrrwRgn'
     NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}} "{{{
@@ -581,9 +581,9 @@
       nnoremap <F2> :NERDTreeToggle<CR>
       nnoremap <F3> :NERDTreeFind<CR>
     "}}}
-    NeoBundleLazy 'majutsushi/tagbar', {'autoload':{'commands':'TagbarToggle'}} "{{{
-      nnoremap <silent> <F9> :TagbarToggle<CR>
-    "}}}
+  "   NeoBundleLazy 'majutsushi/tagbar', {'autoload':{'commands':'TagbarToggle'}} "{{{
+  "     nnoremap <silent> <F9> :TagbarToggle<CR>
+  "   "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'unite') "{{{
     NeoBundle 'Shougo/unite.vim' "{{{
@@ -687,22 +687,22 @@
     NeoBundle 'kana/vim-textobj-user'
     NeoBundle 'kana/vim-textobj-indent'
     NeoBundle 'kana/vim-textobj-entire'
-    NeoBundle 'lucapette/vim-textobj-underscore'
+    " NeoBundle 'lucapette/vim-textobj-underscore'
   endif "}}}
   if count(s:settings.plugin_groups, 'misc') "{{{
     if exists('$TMUX')
       NeoBundle 'christoomey/vim-tmux-navigator'
     endif
-    NeoBundle 'kana/vim-vspec'
+    " NeoBundle 'kana/vim-vspec'
     NeoBundleLazy 'tpope/vim-scriptease', {'autoload':{'filetypes':['vim']}}
     NeoBundleLazy 'tpope/vim-markdown', {'autoload':{'filetypes':['markdown']}}
     if executable('redcarpet') && executable('instant-markdown-d')
       NeoBundleLazy 'suan/vim-instant-markdown', {'autoload':{'filetypes':['markdown']}}
     endif
     NeoBundleLazy 'guns/xterm-color-table.vim', {'autoload':{'commands':'XtermColorTable'}}
-    NeoBundle 'chrisbra/vim_faq'
-    NeoBundle 'vimwiki'
-    NeoBundle 'rosenfeld/conque-term'
+    " NeoBundle 'chrisbra/vim_faq'
+    " NeoBundle 'vimwiki'
+    " NeoBundle 'rosenfeld/conque-term'
     NeoBundle 'bufkill.vim'
     NeoBundle 'mhinz/vim-startify' "{{{
       let g:startify_session_dir = '~/.vim/.cache/sessions'
