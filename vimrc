@@ -124,6 +124,26 @@
       bdelete
     endif
   endfunction "}}}
+
+  function! YankOnFocusLost()
+    let s:lastSystemClipboardData = @"
+    echom s:lastSystemClipboardData
+  endfunction
+
+  function! YankOnFocusGain()
+
+    let @l = s:lastSystemClipboardData
+    if s:lastSystemClipboardData !=# @"
+      let @l = s:lastSystemClipboardData
+    endif
+  endfunction
+  " Check whether the system clipboard changed while focus was lost and 
+  " save it to the l (last) register .
+  augroup _sync_clipboard_system
+    au!
+    autocmd FocusGained * call YankOnFocusGain()
+    autocmd FocusLost * call YankOnFocusLost()
+  augroup END
 "}}}
 
 " base configuration {{{
@@ -195,10 +215,10 @@
     set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
     set grepformat=%f:%l:%c:%m
   endif
-  if executable('ag')
-    set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
-    set grepformat=%f:%l:%c:%m
-  endif
+  " if executable('ag')
+  "   set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
+  "   set grepformat=%f:%l:%c:%m
+  " endif
 
   " vim file/folder management {{{
     " persistent undo
