@@ -126,15 +126,15 @@
   endfunction "}}}
 
   function! YankOnFocusLost()
-    let s:lastSystemClipboardData = @"
+    let s:lastSystemClipboardData = @*
     echom s:lastSystemClipboardData
   endfunction
 
   function! YankOnFocusGain()
 
     let @l = s:lastSystemClipboardData
-    if s:lastSystemClipboardData !=# @"
-      let @l = s:lastSystemClipboardData
+    if s:lastSystemClipboardData !=# @*
+      let @l = @*
     endif
   endfunction
   " Check whether the system clipboard changed while focus was lost and 
@@ -144,6 +144,11 @@
     autocmd FocusGained * call YankOnFocusGain()
     autocmd FocusLost * call YankOnFocusLost()
   augroup END
+"}}}
+
+"set different filetypes {{{
+au BufNewFile,BufRead *.coffee set filetype=coffee
+au BufNewFile,BufRead *.handlebars set filetype=handlebars
 "}}}
 
 " base configuration {{{
@@ -346,7 +351,7 @@
   endif "}}}
 
   if count(s:settings.plugin_groups, 'web') "{{{
-    NeoBundle 'mustache/vim-mustache-handlebars', {'autoload':{'filetypes':['handlebars']}}
+    NeoBundleLazy 'mustache/vim-mustache-handlebars', {'autoload':{'filetypes':['handlebars']}}
     NeoBundleLazy 'groenewege/vim-less', {'autoload':{'filetypes':['less']}}
     NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload':{'filetypes':['scss','sass']}}
     NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload':{'filetypes':['css','scss','sass']}}
@@ -383,12 +388,14 @@
       nnoremap <leader>fjs :call JsBeautify()<cr>
     "}}}
     NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
-    NeoBundle 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}} "{{{
+    NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}} "{{{
     " }}}
 
     " NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
     NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['javascript','json']}} "{{{
     let g:vim_json_syntax_conceal = 0
+    " this line calls the python json tool to format the json object for json file when used like gg=G
+    au FileType json setlocal equalprg=python\ -m\ json.tool
     " }}}
 
     " othree/javascript-libraries-syntax.vim conflicts with coffeescript
@@ -501,7 +508,6 @@
     "}}}
     NeoBundle 'thinca/vim-visualstar'
     NeoBundle 'tomtom/tcomment_vim'
-    " NeoBundle 'terryma/vim-expand-region'
     NeoBundle 'terryma/vim-multiple-cursors'
     NeoBundle 'chrisbra/NrrwRgn'
     NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}} "{{{
@@ -742,15 +748,15 @@
       let g:gist_show_privates=1
     "}}}
     "
-    NeoBundleLazy 'Shougo/vimshell.vim', {'autoload':{'commands':[ 'VimShell', 'VimShellInteractive' ]}} "{{{
-      if s:is_macvim
-        let g:vimshell_editor_command='mvim'
-      else
-        let g:vimshell_editor_command='vim'
-      endif
-      " let g:vimshell_right_prompt='getcwd()'
-      " let g:vimshell_temporary_directory='~/.vim/.cache/vimshell'
-      " let g:vimshell_vimshrc_path='~/.vim/vimshrc'
+    " NeoBundleLazy 'Shougo/vimshell.vim', {'autoload':{'commands':[ 'VimShell', 'VimShellInteractive' ]}} "{{{
+    "   if s:is_macvim
+    "     let g:vimshell_editor_command='mvim'
+    "   else
+    "     let g:vimshell_editor_command='vim'
+    "   endif
+    "   " let g:vimshell_right_prompt='getcwd()'
+    "   " let g:vimshell_temporary_directory='~/.vim/.cache/vimshell'
+    "   " let g:vimshell_vimshrc_path='~/.vim/vimshrc'
 
       nnoremap <leader>c :VimShell -split<cr>
       nnoremap <leader>cc :VimShell -split<cr>
