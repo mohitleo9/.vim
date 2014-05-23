@@ -127,7 +127,6 @@
 
   function! YankOnFocusLost()
     let s:lastSystemClipboardData = @*
-    echom s:lastSystemClipboardData
   endfunction
 
   function! YankOnFocusGain()
@@ -148,6 +147,7 @@
 
 "set different filetypes {{{
 au BufNewFile,BufRead *.coffee set filetype=coffee
+au FileType coffee so /Users/mohitaggarwal/.vim/coffeeplugin.vim
 au BufNewFile,BufRead *.handlebars set filetype=handlebars
 "}}}
 
