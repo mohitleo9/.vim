@@ -199,7 +199,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
   set scrolljump=5                                    "minimum number of lines to scroll
   set display+=lastline
   set wildmenu                                        "show list for autocomplete
-  set wildmode=list:full
+  set wildmode=list:longest,full
   set wildignorecase
   set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store
 
