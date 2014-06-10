@@ -356,7 +356,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload':{'filetypes':['scss','sass']}}
     NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload':{'filetypes':['css','scss','sass']}}
     NeoBundleLazy 'ap/vim-css-color', {'autoload':{'filetypes':['css','scss','sass','less','styl']}}
-    NeoBundleLazy 'othree/html5.vim', {'autoload':{'filetypes':['html']}}
+    " NeoBundleLazy 'othree/html5.vim', {'autoload':{'filetypes':['html']}}
     NeoBundleLazy 'wavded/vim-stylus', {'autoload':{'filetypes':['styl']}}
     NeoBundleLazy 'digitaltoad/vim-jade', {'autoload':{'filetypes':['jade']}}
     NeoBundleLazy 'juvenn/mustache.vim', {'autoload':{'filetypes':['mustache']}}
@@ -406,12 +406,16 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     NeoBundle 'tpope/vim-bundler'
   endif "}}}
   if count(s:settings.plugin_groups, 'python') "{{{
-    NeoBundleLazy 'klen/python-mode', {'autoload':{'filetypes':['python']}} "{{{
-      let g:pymode_rope=0
+    " NeoBundleLazy 'klen/python-mode', {'autoload':{'filetypes':['python']}} "{{{
+      " let g:pymode_rope=0
     "}}}
-    NeoBundleLazy 'davidhalter/jedi-vim', {'autoload':{'filetypes':['python']}} "{{{
-      let g:jedi#popup_on_dot=0
-    "}}}
+    NeoBundleLazy 'hdima/python-syntax', {'autoload': {'filetypes':['python']}}
+    " disable jedi if ycm is used as it is a part of ycm as a submodule
+    if !s:settings.autocomplete_method == 'ycm'
+      NeoBundleLazy 'davidhalter/jedi-vim', {'autoload':{'filetypes':['python']}} "{{{
+        let g:jedi#popup_on_dot=0
+      "}}}
+    endif
   endif "}}}
   if count(s:settings.plugin_groups, 'scala') "{{{
     NeoBundle 'derekwyatt/vim-scala'
@@ -423,7 +427,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
   endif "}}}
   if count(s:settings.plugin_groups, 'scm') "{{{
     NeoBundle 'mhinz/vim-signify' "{{{
-      let g:signify_update_on_bufenter=0
+      " let g:signify_update_on_bufenter=0
     "}}}
     if executable('hg')
       NeoBundle 'bitbucket:ludovicchabant/vim-lawrencium'
@@ -691,7 +695,9 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'indents') "{{{
-    NeoBundle 'Yggdroot/indentLine' "{{{
+    " this plugin has performance issues so can be disabled if causing problems
+    " NeoBundle 'Yggdroot/indentLine' "{{{
+      " let g:indentLine_faster = 1
     "}}}
 
     " NeoBundle 'nathanaelkane/vim-indent-guides' "{{{
@@ -742,6 +748,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       let g:syntastic_style_error_symbol = '✠'
       let g:syntastic_warning_symbol = '∆'
       let g:syntastic_style_warning_symbol = '≈'
+      let g:syntastic_aggregate_errors = 1
     "}}}
     NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } } "{{{
       let g:gist_post_private=1
@@ -898,10 +905,10 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
         \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
   " helpers for profiling {{{
-    nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
-    nnoremap <silent> <leader>DP :exe ":profile pause"<cr>
-    nnoremap <silent> <leader>DC :exe ":profile continue"<cr>
-    nnoremap <silent> <leader>DQ :exe ":profile pause"<cr>:noautocmd qall!<cr>
+    nnoremap <silent> <leader>dd :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
+    nnoremap <silent> <leader>dp :exe ":profile pause"<cr>
+    nnoremap <silent> <leader>dc :exe ":profile continue"<cr>
+    nnoremap <silent> <leader>dq :exe ":profile pause"<cr>:noautocmd qall!<cr>
   "}}}
 "}}}
 
