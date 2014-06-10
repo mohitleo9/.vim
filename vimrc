@@ -671,14 +671,14 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       nnoremap <silent> [unite]b :<C-u>Unite -auto-resize -buffer-name=buffers buffer<cr>
       nnoremap <silent> [unite]/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
       nnoremap <silent> [unite]m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
-      nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
+      " nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
     "}}}
     NeoBundleLazy 'Shougo/neomru.vim', {'autoload':{'unite_sources':'file_mru'}}
     NeoBundleLazy 'osyo-manga/unite-airline_themes', {'autoload':{'unite_sources':'airline_themes'}} "{{{
       nnoremap <silent> [unite]a :<C-u>Unite -winheight=10 -auto-preview -buffer-name=airline_themes airline_themes<cr>
     "}}}
     NeoBundleLazy 'ujihisa/unite-colorscheme', {'autoload':{'unite_sources':'colorscheme'}} "{{{
-      " nnoremap <silent> [unite]c :<C-u>Unite -winheight=10 -auto-preview -buffer-name=colorschemes colorscheme<cr>
+      nnoremap <silent> [unite]s :<C-u>Unite -winheight=10 -auto-preview -buffer-name=colorschemes colorscheme<cr>
     "}}}
     NeoBundleLazy 'tsukkee/unite-tag', {'autoload':{'unite_sources':['tag','tag/file']}} "{{{
       nnoremap <silent> [unite]t :<C-u>Unite -auto-resize -buffer-name=tag tag tag/file<cr>
@@ -735,6 +735,11 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     " NeoBundle 'chrisbra/vim_faq'
     " NeoBundle 'vimwiki'
     " NeoBundle 'rosenfeld/conque-term'
+    NeoBundle 'junegunn/goyo.vim', "  {{{
+      let g:goyo_width=150
+      let g:goyo_margin_top=2
+      let g:goyo_margin_bottom=2
+    " }}}
     NeoBundle 'bufkill.vim'
     NeoBundle 'mhinz/vim-startify' "{{{
       let g:startify_session_dir = '~/.vim/.cache/sessions'
