@@ -547,10 +547,10 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
         let g:ackprg = "ag --nogroup --column --smart-case --follow"
       endif
     "}}}
-    NeoBundleLazy 'mbbill/undotree', {'autoload':{'commands':'UndotreeToggle'}} "{{{
-      let g:undotree_SplitLocation='botright'
-      let g:undotree_SetFocusWhenToggle=1
-      nnoremap <silent> <F5> :UndotreeToggle<CR>
+    NeoBundleLazy 'sjl/gundo.vim', {'autoload':{'commands':'GundoToggle'}} "{{{
+      let g:gundo_preview_bottom=1
+      let g:gundo_width=30
+      nnoremap <silent> <F5> :GundoToggle<CR>
     "}}}
     NeoBundleLazy 'EasyGrep', {'autoload':{'commands':'GrepOptions'}} "{{{
       let g:EasyGrepRecursive=1
