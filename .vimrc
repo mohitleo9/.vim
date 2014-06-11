@@ -14,6 +14,13 @@ let g:quickhl_manual_enable_at_startup=1
 "XXX remove this if you quit the company :)
 let g:fugitive_github_domains = ['https://github.wgenhq.net']
 
+" special case for vim without plugins
+if exists('g:plugins')
+  set showtabline=0
+  set statusline=0
+  let g:dotvim_settings.plugin_groups = ['editing']
+  " let g:dotvim_settings.plugin_groups_include = []
+endif
 
 source ~/.vim/vimrc
 " for solarized colorscheme

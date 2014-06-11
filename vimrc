@@ -552,12 +552,6 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       let g:gundo_width=30
       nnoremap <silent> <F5> :GundoToggle<CR>
     "}}}
-    NeoBundleLazy 'EasyGrep', {'autoload':{'commands':'GrepOptions'}} "{{{
-      let g:EasyGrepRecursive=1
-      let g:EasyGrepAllOptionsInExplorer=1
-      let g:EasyGrepCommand=1
-      nnoremap <leader>vo :GrepOptions<cr>
-    "}}}
     NeoBundle 'kien/ctrlp.vim', { 'depends': 'tacahiroy/ctrlp-funky' } "{{{
       let g:ctrlp_clear_cache_on_exit=1
       let g:ctrlp_max_height=40
@@ -600,20 +594,6 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       nnoremap [ctrlp]o :CtrlPFunky<cr>
       nnoremap [ctrlp]b :CtrlPBuffer<cr>
     "}}}
-    NeoBundleLazy 'scrooloose/nerdtree', {'autoload':{'commands':['NERDTreeToggle','NERDTreeFind']}} "{{{
-      let NERDTreeShowHidden=1
-      let NERDTreeQuitOnOpen=0
-      let NERDTreeShowLineNumbers=1
-      let NERDTreeChDirMode=0
-      let NERDTreeShowBookmarks=1
-      let NERDTreeIgnore=['\.git','\.hg']
-      let NERDTreeBookmarksFile='~/.vim/.cache/NERDTreeBookmarks'
-      nnoremap <F2> :NERDTreeToggle<CR>
-      nnoremap <F3> :NERDTreeFind<CR>
-    "}}}
-  "   NeoBundleLazy 'majutsushi/tagbar', {'autoload':{'commands':'TagbarToggle'}} "{{{
-  "     nnoremap <silent> <F9> :TagbarToggle<CR>
-  "   "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'unite') "{{{
     NeoBundle 'Shougo/unite.vim' "{{{
