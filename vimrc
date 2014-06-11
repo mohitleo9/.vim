@@ -926,6 +926,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
   "}}}
   NeoBundle 'nanotech/jellybeans.vim'
   NeoBundle 'tomasr/molokai'
+  NeoBundle 'morhetz/gruvbox'
   NeoBundle 'chriskempson/vim-tomorrow-theme'
   NeoBundle 'chriskempson/base16-vim'
   NeoBundle 'w0ng/vim-hybrid'
