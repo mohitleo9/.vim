@@ -579,7 +579,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       endif
       let g:ctrlp_user_command = {
             \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+            \ 1: ['.git', 'cd %s &&  ag . --files-with-matches'],
             \ 2: ['.hg', 'hg --cwd %s locate -I .'],
             \ },
             \ 'fallback': s:ctrlp_fallback
