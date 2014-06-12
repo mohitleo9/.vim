@@ -303,16 +303,16 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     if $COLORTERM == 'gnome-terminal'
       set t_Co=256 "why you no tell me correct colors?!?!
     endif
-    " if $TERM_PROGRAM == 'iTerm.app'
-    "   " different cursors for insert vs normal mode
-    "   if exists('$TMUX')
-    "     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    "     let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-    "   else
-    "     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    "     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-    "   endif
-    " endif
+    if $TERM_PROGRAM == 'iTerm.app'
+      " different cursors for insert vs normal mode
+      if exists('$TMUX')
+        let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+        let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+      else
+        let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+        let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+      endif
+    endif
   endif
 "}}}
 
@@ -406,8 +406,8 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     NeoBundle 'tpope/vim-bundler'
   endif "}}}
   if count(s:settings.plugin_groups, 'python') "{{{
-    " NeoBundleLazy 'klen/python-mode', {'autoload':{'filetypes':['python']}} "{{{
-      " let g:pymode_rope=0
+    NeoBundleLazy 'klen/python-mode', {'autoload':{'filetypes':['python']}} "{{{
+      let g:pymode_rope=0
     "}}}
     NeoBundleLazy 'hdima/python-syntax', {'autoload': {'filetypes':['python']}}
     " disable jedi if ycm is used as it is a part of ycm as a submodule
@@ -445,6 +445,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       autocmd FileType gitcommit nmap <buffer> U :Git checkout -- <C-r><C-g><CR>
       autocmd BufReadPost fugitive://* set bufhidden=delete
     "}}}
+    NeoBundle 'tpope/vim-git'
     NeoBundleLazy 'gregsexton/gitv', {'depends':['tpope/vim-fugitive'], 'autoload':{'commands':'Gitv'}} "{{{
       nnoremap <silent> <leader>gv :Gitv<CR>
       nnoremap <silent> <leader>gV :Gitv!<CR>
