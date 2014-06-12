@@ -201,7 +201,9 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
   set wildmenu                                        "show list for autocomplete
   set wildmode=list:longest,full
   set wildignorecase
-  set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store
+  " remove the wildignore as it is not used and it breaks fugitive
+  " https://github.com/tpope/vim-fugitive/issues/121
+  " set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store
 
   set splitbelow
   set splitright
