@@ -136,7 +136,7 @@
       let @l = @*
     endif
   endfunction
-  " Check whether the system clipboard changed while focus was lost and 
+  " Check whether the system clipboard changed while focus was lost and
   " save it to the l (last) register .
   augroup _sync_clipboard_system
     au!
@@ -327,7 +327,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
-    " this plugin overrides the default text objects in vim and first make them multiline and also provides 
+    " this plugin overrides the default text objects in vim and first make them multiline and also provides
     " some new operators such as , _ etc
     NeoBundle 'wellle/targets.vim'
     NeoBundle 'tpope/vim-sleuth'
@@ -408,8 +408,9 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     NeoBundle 'tpope/vim-bundler'
   endif "}}}
   if count(s:settings.plugin_groups, 'python') "{{{
-    NeoBundleLazy 'klen/python-mode', {'autoload':{'filetypes':['python']}} "{{{
-      let g:pymode_rope=0
+    " NeoBundleLazy 'klen/python-mode', {'autoload':{'filetypes':['python']}} "{{{
+      " let g:pymode_rope=0
+      " let g:pymode_lint = 0
     "}}}
     NeoBundleLazy 'hdima/python-syntax', {'autoload': {'filetypes':['python']}}
     " disable jedi if ycm is used as it is a part of ycm as a submodule
@@ -913,7 +914,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     \  exe 'normal! g`"zvzz' |
     \ endif
 
-  autocmd FileType js,scss,css autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+  autocmd FileType js,scss,css,python,coffee,vim autocmd BufWritePre <buffer> call StripTrailingWhitespace()
   autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
   autocmd FileType css,scss nnoremap <silent> <leader>S vi{:sort<CR>
   autocmd FileType python setlocal foldmethod=indent
