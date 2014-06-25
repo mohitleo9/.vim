@@ -19,7 +19,7 @@
 
   " initialize default settings
   let s:settings = {}
-  let s:settings.default_indent = 2
+  let s:settings.default_indent = 4
   let s:settings.max_column = 120
   let s:settings.autocomplete_method = 'neocomplcache'
   let s:settings.enable_cursorcolumn = 0
@@ -331,7 +331,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     " some new operators such as , _ etc
     NeoBundle 'wellle/targets.vim'
     NeoBundle 'tpope/vim-sleuth'
-    NeoBundle 'flazz/vim-colorschemes'
+    " NeoBundle 'flazz/vim-colorschemes'
     NeoBundle 'tpope/vim-repeat'
     NeoBundle 'Peeja/vim-cdo'
     NeoBundle 'tpope/vim-dispatch'
@@ -395,7 +395,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
 
     " NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
     NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['javascript','json']}} "{{{
-    let g:vim_json_syntax_conceal = 0
+    " let g:vim_json_syntax_conceal = 1
     " this line calls the python json tool to format the json object for json file when used like gg=G
     au FileType json setlocal equalprg=python\ -m\ json.tool
     " }}}
@@ -509,10 +509,6 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       xmap <leader>m <Plug>(quickhl-manual-this)
       nmap <leader>M <Plug>(quickhl-manual-reset)
       xmap <leader>M <Plug>(quickhl-manual-reset)
-      " nmap <Space>j <Plug>(quickhl-cword-toggle)
-      " nmap <Space>] <Plug>(quickhl-tag-toggle)
-      " map H <Plug>(operator-quickhl-manual-this-motion)
-      "
     "}}}
     NeoBundle 'thinca/vim-visualstar'
     NeoBundle 'tomtom/tcomment_vim'
@@ -541,8 +537,6 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       omap / <Plug>(easymotion-tn)
       map  n <Plug>(easymotion-next)
       map  N <Plug>(easymotion-prev)
-      nmap s <Plug>(easymotion-s2)
-      " let g:sneak#streak = 1
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
@@ -930,11 +924,16 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
   "}}}
   NeoBundle 'nanotech/jellybeans.vim'
   NeoBundle 'tomasr/molokai'
+  " this plugin highilghts the color for hex value
+  NeoBundle 'lilydjwg/colorizer' " {{{
+    let g:colorizer_nomap = 1
+  " }}}
   NeoBundle 'morhetz/gruvbox'
   NeoBundle 'chriskempson/vim-tomorrow-theme'
   NeoBundle 'chriskempson/base16-vim'
   NeoBundle 'w0ng/vim-hybrid'
   NeoBundle 'sjl/badwolf'
+  NeoBundle 'junegunn/seoul256.vim'
   NeoBundle 'zeis/vim-kolor' "{{{
     let g:kolor_underlined=1
   "}}}
