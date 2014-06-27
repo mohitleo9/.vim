@@ -765,14 +765,9 @@ augroup END
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'windows') "{{{
-    NeoBundleLazy 'PProvost/vim-ps1', {'autoload':{'filetypes':['ps1']}} "{{{
-      " autocmd BufNewFile,BufRead *.ps1,*.psd1,*.psm1 setlocal ft=ps1
-    "}}}
+    NeoBundleLazy 'PProvost/vim-ps1', {'autoload':{'filetypes':['ps1']}}
     NeoBundleLazy 'nosami/Omnisharp', {'autoload':{'filetypes':['cs']}}
   endif "}}}
-
-  nnoremap <leader>nbu :Unite neobundle/update -vertical -no-start-insert<cr>
-"}}}
 
 " mappings {{{
   " formatting shortcuts
