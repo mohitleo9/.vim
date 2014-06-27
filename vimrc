@@ -467,7 +467,12 @@ augroup END
   if count(s:settings.plugin_groups, 'autocomplete') "{{{
     NeoBundle 'honza/vim-snippets'
     if s:settings.autocomplete_method == 'ycm' "{{{
-      NeoBundle 'Valloric/YouCompleteMe', {'vim_version':'7.3.584'} "{{{
+      NeoBundle 'Valloric/YouCompleteMe', {
+            \ 'build' : {
+            \    'unix' : './install.sh --clang-completer',
+            \    'mac' : './install.sh --clang-completer',
+            \ },
+      \} "{{{
         let g:ycm_complete_in_comments_and_strings=1
         nnoremap <leader>jd :YcmCompleter GoTo<CR>
         let g:ycm_collect_identifiers_from_comments_and_strings = 1
