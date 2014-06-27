@@ -125,30 +125,33 @@
     endif
   endfunction "}}}
 
-  function! YankOnFocusLost()
+  function! YankOnFocusLost() "{{{
     let s:lastSystemClipboardData = @*
-  endfunction
+  endfunction "}}}
 
-  function! YankOnFocusGain()
+  function! YankOnFocusGain() "{{{
 
     let @l = s:lastSystemClipboardData
     if s:lastSystemClipboardData !=# @*
       let @l = @*
     endif
-  endfunction
+  endfunction "}}}
   " Check whether the system clipboard changed while focus was lost and
   " save it to the l (last) register .
-  augroup _sync_clipboard_system
-    au!
+  augroup _sync_clipboard_system "{{{
+    autocmd!
     autocmd FocusGained * call YankOnFocusGain()
     autocmd FocusLost * call YankOnFocusLost()
-  augroup END
+  augroup END "}}}
 "}}}
 
 "set different filetypes {{{
-au BufNewFile,BufRead *.coffee set filetype=coffee
-au FileType coffee so /Users/mohitaggarwal/.vim/coffeeplugin.vim
-au BufNewFile,BufRead *.handlebars set filetype=handlebars
+augroup newFiletypes
+  autocmd!
+  autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+  autocmd FileType coffee so /Users/mohitaggarwal/.vim/coffeeplugin.vim
+  autocmd BufNewFile,BufRead *.handlebars set filetype=handlebars
+augroup END
 "}}}
 
 " base configuration {{{
@@ -222,10 +225,6 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
     set grepformat=%f:%l:%c:%m
   endif
-  " if executable('ag')
-  "   set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
-  "   set grepformat=%f:%l:%c:%m
-  " endif
 
   " vim file/folder management {{{
     " persistent undo
@@ -265,13 +264,19 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
   let g:xml_syntax_folding=1                          "enable xml folding
 
   set cursorline
-  autocmd WinLeave * setlocal nocursorline
-  autocmd WinEnter * setlocal cursorline
+  augroup fixcursorline
+    autocmd!
+    autocmd WinLeave * setlocal nocursorline
+    autocmd WinEnter * setlocal cursorline
+  augroup END
   let &colorcolumn=s:settings.max_column
   if s:settings.enable_cursorcolumn
     set cursorcolumn
-    autocmd WinLeave * setlocal nocursorcolumn
-    autocmd WinEnter * setlocal cursorcolumn
+    augroup restoreCursorline
+      autocmd!
+      autocmd WinLeave * setlocal nocursorcolumn
+      autocmd WinEnter * setlocal cursorcolumn
+    augroup END
   endif
 
   if has('conceal')
@@ -283,16 +288,14 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     " open maximized
     set lines=999 columns=9999
     if s:is_windows
-      autocmd GUIEnter * simalt ~x
+      augroup maximazeWindow
+        autocmd!
+        autocmd GUIEnter * simalt ~x
+      augroup END
     endif
 
     set guioptions+=t                                 "tear off menu items
     set guioptions-=T                                 "toolbar icons
-
-    " if s:is_macvim
-      " set gfn=Ubuntu_Mono:h14
-      " set transparency=2
-    " endif
 
     if s:is_windows
       set gfn=Ubuntu_Mono:h10
@@ -331,7 +334,6 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     " some new operators such as , _ etc
     NeoBundle 'wellle/targets.vim'
     NeoBundle 'tpope/vim-sleuth'
-    " NeoBundle 'flazz/vim-colorschemes'
     NeoBundle 'tpope/vim-repeat'
     NeoBundle 'Peeja/vim-cdo'
     NeoBundle 'tpope/vim-dispatch'
@@ -364,15 +366,15 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     NeoBundleLazy 'juvenn/mustache.vim', {'autoload':{'filetypes':['mustache']}}
     NeoBundleLazy 'gregsexton/MatchTag', {'autoload':{'filetypes':['html','xml']}}
     NeoBundleLazy 'mattn/emmet-vim', {'autoload':{'filetypes':['html','xml','xsl','xslt','xsd','css','sass','scss','less','mustache']}} "{{{
-      function! s:zen_html_tab()
-        let line = getline('.')
-        if match(line, '<.*>') < 0
-          return "\<c-y>,"
-        endif
-        return "\<c-y>n"
-      endfunction
-      autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
-      autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
+      " function! s:zen_html_tab()
+      "   let line = getline('.')
+      "   if match(line, '<.*>') < 0
+      "     return "\<c-y>,"
+      "   endif
+      "   return "\<c-y>n"
+      " endfunction
+      " autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
+      " autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'javascript') "{{{
@@ -395,9 +397,12 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
 
     " NeoBundleLazy 'mmalecki/vim-node.js', {'autoload':{'filetypes':['javascript']}}
     NeoBundleLazy 'elzr/vim-json', {'autoload':{'filetypes':['javascript','json']}} "{{{
-    " let g:vim_json_syntax_conceal = 1
+    let g:vim_json_syntax_conceal = 0
     " this line calls the python json tool to format the json object for json file when used like gg=G
-    au FileType json setlocal equalprg=python\ -m\ json.tool
+    augroup formatjson
+      autocmd!
+      autocmd FileType json setlocal equalprg=python\ -m\ json.tool
+    augroup END
     " }}}
 
     " othree/javascript-libraries-syntax.vim conflicts with coffeescript
@@ -408,11 +413,12 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
     NeoBundle 'tpope/vim-bundler'
   endif "}}}
   if count(s:settings.plugin_groups, 'python') "{{{
-    " NeoBundleLazy 'klen/python-mode', {'autoload':{'filetypes':['python']}} "{{{
-      " let g:pymode_rope=0
-      " let g:pymode_lint = 0
+    NeoBundleLazy 'klen/python-mode', {'autoload':{'filetypes':['python']}} "{{{
+      let g:pymode_rope=0
+      let g:pymode_run = 0
+      let g:pymode_lint = 0
     "}}}
-    NeoBundleLazy 'hdima/python-syntax', {'autoload': {'filetypes':['python']}}
+    " NeoBundleLazy 'hdima/python-syntax', {'autoload': {'filetypes':['python']}}
     " disable jedi if ycm is used as it is a part of ycm as a submodule
     if !s:settings.autocomplete_method == 'ycm'
       NeoBundleLazy 'davidhalter/jedi-vim', {'autoload':{'filetypes':['python']}} "{{{
@@ -430,7 +436,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
   endif "}}}
   if count(s:settings.plugin_groups, 'scm') "{{{
     NeoBundle 'mhinz/vim-signify' "{{{
-      " let g:signify_update_on_bufenter=0
+      let g:signify_update_on_focusgained = 1
     "}}}
     if executable('hg')
       NeoBundle 'bitbucket:ludovicchabant/vim-lawrencium'
@@ -445,8 +451,12 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       nnoremap <silent> <leader>gp :Git push<CR>
       nnoremap <silent> <leader>gw :Gwrite<CR>
       nnoremap <silent> <leader>gr :Gremove<CR>
-      autocmd FileType gitcommit nmap <buffer> U :Git checkout -- <C-r><C-g><CR>
-      autocmd BufReadPost fugitive://* set bufhidden=delete
+
+      augroup _fugitive_buffer_delete
+        autocmd!
+        autocmd FileType gitcommit nmap <buffer> U :Git checkout -- <C-r><C-g><CR>
+        autocmd BufReadPost fugitive://* set bufhidden=delete
+      augroup END
     "}}}
     NeoBundle 'tpope/vim-git'
     NeoBundleLazy 'gregsexton/gitv', {'depends':['tpope/vim-fugitive'], 'autoload':{'commands':'Gitv'}} "{{{
@@ -624,7 +634,11 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
         nmap <buffer> <esc> <plug>(unite_exit)
         imap <buffer> <esc> <plug>(unite_exit)
       endfunction
-      autocmd FileType unite call s:unite_settings()
+
+      augroup _unite_settings
+        autocmd!
+        autocmd FileType unite call s:unite_settings()
+      augroup END
 
       nmap <space> [unite]
       nnoremap [unite] <nop>
@@ -737,16 +751,6 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
       let g:gist_post_private=1
       let g:gist_show_privates=1
     "}}}
-    "
-    " NeoBundleLazy 'Shougo/vimshell.vim', {'autoload':{'commands':[ 'VimShell', 'VimShellInteractive' ]}} "{{{
-    "   if s:is_macvim
-    "     let g:vimshell_editor_command='mvim'
-    "   else
-    "     let g:vimshell_editor_command='vim'
-    "   endif
-    "   " let g:vimshell_right_prompt='getcwd()'
-    "   " let g:vimshell_temporary_directory='~/.vim/.cache/vimshell'
-    "   " let g:vimshell_vimshrc_path='~/.vim/vimshrc'
 
       nnoremap <leader>c :VimShell -split<cr>
       nnoremap <leader>cc :VimShell -split<cr>
@@ -762,7 +766,7 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
   endif "}}}
   if count(s:settings.plugin_groups, 'windows') "{{{
     NeoBundleLazy 'PProvost/vim-ps1', {'autoload':{'filetypes':['ps1']}} "{{{
-      autocmd BufNewFile,BufRead *.ps1,*.psd1,*.psm1 setlocal ft=ps1
+      " autocmd BufNewFile,BufRead *.ps1,*.psd1,*.psm1 setlocal ft=ps1
     "}}}
     NeoBundleLazy 'nosami/Omnisharp', {'autoload':{'filetypes':['cs']}}
   endif "}}}
@@ -787,9 +791,8 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
   nnoremap <up> :tabnext<CR>
   nnoremap <down> :tabprev<CR>
 
-  " smash escape
-  inoremap jk <esc>
-  inoremap kj <esc>
+  " quick jump to last editing cursor location
+  nnoremap ;; g;
 
   " change cursor position in insert mode
   inoremap <C-h> <left>
@@ -802,8 +805,6 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
   endif
 
   " sane regex {{{
-    " nnoremap / /\v
-    " vnoremap / /\v
     nnoremap ? ?\v
     vnoremap ? ?\v
     nnoremap :s/ :s/\v
@@ -903,17 +904,20 @@ au BufNewFile,BufRead *.handlebars set filetype=handlebars
 
 " autocmd {{{
   " go back to previous position of cursor if any
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \  exe 'normal! g`"zvzz' |
-    \ endif
+  augroup variousCommands
+    autocmd!
+    autocmd BufReadPost *
+          \ if line("'\"") > 0 && line("'\"") <= line("$") |
+          \  exe 'normal! g`"zvzz' |
+          \ endif
 
-  autocmd FileType js,scss,css,python,coffee,vim autocmd BufWritePre <buffer> call StripTrailingWhitespace()
-  autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
-  autocmd FileType css,scss nnoremap <silent> <leader>S vi{:sort<CR>
-  autocmd FileType python setlocal foldmethod=indent
-  autocmd FileType markdown setlocal nolist
-  autocmd FileType vim setlocal fdm=indent keywordprg=:help
+    autocmd FileType js,scss,css,python,coffee,vim autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+    autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
+    autocmd FileType css,scss nnoremap <silent> <leader>S vi{:sort<CR>
+    autocmd FileType python setlocal foldmethod=indent
+    autocmd FileType markdown setlocal nolist
+    autocmd FileType vim setlocal fdm=indent keywordprg=:help
+  augroup END
 "}}}
 
 " color schemes {{{

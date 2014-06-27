@@ -1,6 +1,6 @@
 let g:dotvim_settings = {}
 let g:dotvim_settings.version = 1
-" let g:dotvim_settings.default_indent = 4
+let g:dotvim_settings.default_indent = 4
 " ycm does not work
 let g:dotvim_settings.autocomplete_method='ycm'
 let g:dotvim_settings.enable_cursorcolumn = 1
@@ -35,4 +35,4 @@ augroup END
 set guifont=menlo\ for\ powerline:h18
 set nowrap
 " highlight Pmenu guibg=DarkGreen guifg=White
-" highlight Search guibg=DarkGreen guifg=white gui=NONE
+highlight Search guibg=#3E4D36 guifg=White
