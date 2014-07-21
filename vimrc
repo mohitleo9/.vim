@@ -580,10 +580,6 @@ augroup END
       omap / <Plug>(easymotion-tn)
       map  n <Plug>(easymotion-next)
       map  N <Plug>(easymotion-prev)
-      " omap t <Plug>(easymotion-tl)
-      " omap T <Plug>(easymotion-Tl)
-      " omap f <Plug>(easymotion-fl)
-      " omap F <Plug>(easymotion-Fl)
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
@@ -958,7 +954,6 @@ augroup END
     " let g:solarized_termtrans=1
   "}}}
   NeoBundle 'nanotech/jellybeans.vim'
-  NeoBundle 'reedes/vim-colors-pencil'
   NeoBundle 'tomasr/molokai'
   " this plugin highilghts the color for hex value
   NeoBundle 'lilydjwg/colorizer' " {{{
