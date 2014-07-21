@@ -35,4 +35,6 @@ augroup END
 set guifont=menlo\ for\ powerline:h18
 set nowrap
 " highlight Pmenu guibg=DarkGreen guifg=White
-highlight Search guibg=#3E4D36 guifg=White
+if g:dotvim_settings.colorscheme ==# 'molokai'
+  highlight Search guibg=#3E4D36 guifg=White
+endif
