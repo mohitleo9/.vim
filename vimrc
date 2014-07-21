@@ -151,6 +151,7 @@ augroup newFiletypes
   autocmd BufNewFile,BufRead *.coffee set filetype=coffee
   autocmd FileType coffee so /Users/mohitaggarwal/.vim/coffeeplugin.vim
   autocmd BufNewFile,BufRead *.handlebars set filetype=handlebars
+  autocmd BufNewFile,BufRead *.wiki set filetype=mediawiki
 augroup END
 "}}}
 
@@ -164,11 +165,7 @@ augroup END
   set ttyfast                                         "assume fast terminal connection
   set viewoptions=folds,options,cursor,unix,slash     "unix/windows compatibility
   set encoding=utf-8                                  "set encoding for text
-  if exists('$TMUX')
-    set clipboard=
-  else
-    set clipboard=unnamed                             "sync with OS clipboard
-  endif
+  set clipboard=unnamed                             "sync with OS clipboard
   set hidden                                          "allow buffer switching without saving
   set autoread                                        "auto reload if file saved externally
   set fileformats+=mac                                "add mac to auto-detection of file format line endings
@@ -330,13 +327,37 @@ augroup END
       let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
+    NeoBundle 'ton/vim-bufsurf'
+    " rainbow parentheses
+    NeoBundle 'luochen1990/rainbow'  "{{{
+      let g:rainbow_active = 1
+      let g:rainbow_conf = {
+            \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+            \   'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan'],
+            \   'operators': '_,_',
+            \   'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
+            \   'separately': {
+            \       '*': {},
+            \       'javascript': {
+            \           'guifgs': ['darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+            \           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
+            \       },
+            \       'tex': {
+            \           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
+            \       },
+            \       'css': 0,
+            \       'stylus': 0,
+            \   }
+            \}
+    " }}}
     " this plugin overrides the default text objects in vim and first make them multiline and also provides
     " some new operators such as , _ etc
     NeoBundle 'wellle/targets.vim'
     NeoBundle 'tpope/vim-sleuth'
     NeoBundle 'tpope/vim-repeat'
     NeoBundle 'Peeja/vim-cdo'
-    NeoBundle 'tpope/vim-dispatch'
+    " breaks ack.vim
+    " NeoBundle 'tpope/vim-dispatch'
     NeoBundle 'tpope/vim-eunuch'
     NeoBundle 'tpope/vim-unimpaired' "{{{
       nmap <c-up> [e
@@ -387,7 +408,13 @@ augroup END
         \ 'windows': 'npm install',
       \ },
     \ }
-    NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
+    " {{{
+        " tern config
+        let g:tern_map_keys=1
+        let g:tern_show_argument_hits='on_hold'
+    " }}}
+    " NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
+    NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
     NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}} "{{{
       nnoremap <leader>fjs :call JsBeautify()<cr>
     "}}}
@@ -406,7 +433,7 @@ augroup END
     " }}}
 
     " othree/javascript-libraries-syntax.vim conflicts with coffeescript
-    " NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript','coffee','ls','typescript']}}
+    NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript','typescript']}}
   endif "}}}
   if count(s:settings.plugin_groups, 'ruby') "{{{
     NeoBundle 'tpope/vim-rails'
@@ -478,7 +505,7 @@ augroup END
         let g:ycm_collect_identifiers_from_comments_and_strings = 1
         " let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
         " let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
-        let g:ycm_filetype_blacklist={'unite': 1}
+        " let g:ycm_filetype_blacklist={'unite': 1}
       "}}}
       NeoBundle 'SirVer/ultisnips' "{{{
         let g:UltiSnipsExpandTrigger = '<C-j>'
@@ -518,6 +545,7 @@ augroup END
   if count(s:settings.plugin_groups, 'editing') "{{{
     " NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
     NeoBundle 'tpope/vim-endwise'
+    " NeoBundle 'jaxbot/semantic-highlight.vim'
     NeoBundle 'tpope/vim-speeddating'
     NeoBundle 't9md/vim-quickhl' "{{{
       nmap <leader>m <Plug>(quickhl-manual-this)
@@ -552,6 +580,10 @@ augroup END
       omap / <Plug>(easymotion-tn)
       map  n <Plug>(easymotion-next)
       map  N <Plug>(easymotion-prev)
+      " omap t <Plug>(easymotion-tl)
+      " omap T <Plug>(easymotion-Tl)
+      " omap f <Plug>(easymotion-fl)
+      " omap F <Plug>(easymotion-Fl)
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
@@ -721,10 +753,12 @@ augroup END
   if count(s:settings.plugin_groups, 'misc') "{{{
     if exists('$TMUX')
       NeoBundle 'christoomey/vim-tmux-navigator'
+      NeoBundle 'benmills/vimux'
     endif
     " NeoBundle 'kana/vim-vspec'
     NeoBundleLazy 'tpope/vim-scriptease', {'autoload':{'filetypes':['vim']}}
     NeoBundleLazy 'tpope/vim-markdown', {'autoload':{'filetypes':['markdown']}}
+    NeoBundleLazy 'chikamichi/mediawiki.vim', {'autoload':{'filetypes':['mediawiki']}}
     if executable('redcarpet') && executable('instant-markdown-d')
       NeoBundleLazy 'suan/vim-instant-markdown', {'autoload':{'filetypes':['markdown']}}
     endif
@@ -790,9 +824,6 @@ augroup END
   nnoremap <right> :bnext<CR>
   nnoremap <up> :tabnext<CR>
   nnoremap <down> :tabprev<CR>
-
-  " quick jump to last editing cursor location
-  nnoremap ;; g;
 
   " change cursor position in insert mode
   inoremap <C-h> <left>
@@ -927,6 +958,7 @@ augroup END
     " let g:solarized_termtrans=1
   "}}}
   NeoBundle 'nanotech/jellybeans.vim'
+  NeoBundle 'reedes/vim-colors-pencil'
   NeoBundle 'tomasr/molokai'
   " this plugin highilghts the color for hex value
   NeoBundle 'lilydjwg/colorizer' " {{{
