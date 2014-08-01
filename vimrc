@@ -90,6 +90,12 @@
 "}}}
 
 " functions {{{
+  function! Source(begin, end) "{{{
+    let lines = getline(a:begin, a:end)
+    for line in lines
+      execute line
+    endfor
+  endfunction "}}}
   function! Preserve(command) "{{{
     " preparation: save last search, and cursor position.
     let _s=@/
@@ -125,23 +131,14 @@
     endif
   endfunction "}}}
 
-  function! YankOnFocusLost() "{{{
-    let s:lastSystemClipboardData = @*
-  endfunction "}}}
 
   function! YankOnFocusGain() "{{{
-
-    let @l = s:lastSystemClipboardData
-    if s:lastSystemClipboardData !=# @*
-      let @l = @*
-    endif
+    let @l = @*
   endfunction "}}}
-  " Check whether the system clipboard changed while focus was lost and
-  " save it to the l (last) register .
+  " backup the system copied data in l register
   augroup _sync_clipboard_system "{{{
     autocmd!
     autocmd FocusGained * call YankOnFocusGain()
-    autocmd FocusLost * call YankOnFocusLost()
   augroup END "}}}
 "}}}
 
@@ -328,27 +325,19 @@ augroup END
     "}}}
     NeoBundle 'tpope/vim-surround'
     NeoBundle 'ton/vim-bufsurf'
-    " rainbow parentheses
-    NeoBundle 'luochen1990/rainbow'  "{{{
-      let g:rainbow_active = 1
-      let g:rainbow_conf = {
-            \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-            \   'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan'],
-            \   'operators': '_,_',
-            \   'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
-            \   'separately': {
-            \       '*': {},
-            \       'javascript': {
-            \           'guifgs': ['darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-            \           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
-            \       },
-            \       'tex': {
-            \           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
-            \       },
-            \       'css': 0,
-            \       'stylus': 0,
-            \   }
-            \}
+    NeoBundle 'kien/rainbow_parentheses.vim' " {{{
+    let g:rbpt_max = 10
+    let g:rbpt_loadcmd_toggle = 1
+    let g:rbpt_colorpairs = [['red', 'red1'],
+                           \ ['yellow', 'orange1'],
+                           \ ['green', 'yellow1'],
+                           \ ['cyan', 'greenyellow'],
+                           \ ['magenta', 'green1'],
+                           \ ['red', 'springgreen1'],
+                           \ ['yellow', 'cyan1'],
+                           \ ['green', 'slateblue1'],
+                           \ ['cyan', 'magenta1'],
+                           \ ['magenta', 'purple1']]
     " }}}
     " this plugin overrides the default text objects in vim and first make them multiline and also provides
     " some new operators such as , _ etc
@@ -365,6 +354,9 @@ augroup END
       vmap <c-up> [egv
       vmap <c-down> ]egv
     "}}}
+    NeoBundle 'AndrewRadev/switch.vim' " {{{
+    nnoremap <c-c> :Switch<cr>
+    " }}}
     NeoBundle 'Shougo/vimproc.vim', {
       \ 'build': {
         \ 'mac': 'make -f make_mac.mak',
@@ -805,6 +797,9 @@ augroup END
   endif "}}}
 
 " mappings {{{
+"  eval vimscript by line or visual selection
+  nmap <silent> <leader>e :call Source(line('.'), line('.'))<CR>
+  vmap <silent> <leader>e :call Source(line('v'), line('.'))<CR>
   " formatting shortcuts
   nmap <leader>fef :call Preserve("normal gg=G")<CR>
   nmap <leader>f$ :call StripTrailingWhitespace()<CR>
