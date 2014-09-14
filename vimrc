@@ -317,6 +317,14 @@ augroup END
 
 " plugin/mapping configuration {{{
   if count(s:settings.plugin_groups, 'core') "{{{
+    NeoBundle 'rizzatti/dash.vim'
+    NeoBundle 'AndrewRadev/splitjoin.vim'
+    NeoBundle 'mohitleo9/vim-fidget',{
+            \ 'build' : {
+            \    'unix' : 'npm install -g',
+            \    'mac' : 'npm install -g',
+            \ },
+      \}
     NeoBundle 'matchit.zip'
     NeoBundle 'bling/vim-airline' "{{{
       let g:airline#extensions#tabline#enabled = 1
@@ -354,6 +362,7 @@ augroup END
       vmap <c-up> [egv
       vmap <c-down> ]egv
     "}}}
+    "this plugin can toggle between true and false and a whole lot more
     NeoBundle 'AndrewRadev/switch.vim' " {{{
     nnoremap <c-c> :Switch<cr>
     " }}}
@@ -381,13 +390,14 @@ augroup END
     NeoBundleLazy 'mattn/emmet-vim', {'autoload':{'filetypes':['html','xml','xsl','xslt','xsd','css','sass','scss','less','mustache']}} "{{{
       " function! s:zen_html_tab()
       "   let line = getline('.')
-      "   if match(line, '<.*>') < 0
+      "   if match(line, '\v\s*.*>') !=# 0
       "     return "\<c-y>,"
       "   endif
       "   return "\<c-y>n"
       " endfunction
       " autocmd FileType xml,xsl,xslt,xsd,css,sass,scss,less,mustache imap <buffer><tab> <c-y>,
-      " autocmd FileType html imap <buffer><expr><tab> <sid>zen_html_tab()
+      " autocmd FileType html imap <buffer><expr><C-c> <sid>zen_html_tab()
+      autocmd FileType html nmap <leader>r <C-y>,
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'javascript') "{{{
@@ -411,6 +421,7 @@ augroup END
       nnoremap <leader>fjs :call JsBeautify()<cr>
     "}}}
     NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
+    NeoBundleLazy 'matthewsimo/angular-vim-snippets', {'autoload':{'filetypes':['coffeescript, javascript']}}
     NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}} "{{{
     " }}}
 
@@ -436,6 +447,7 @@ augroup END
       let g:pymode_rope=0
       let g:pymode_run = 0
       let g:pymode_lint = 0
+      let g:pymode_folding = 0
     "}}}
     " NeoBundleLazy 'hdima/python-syntax', {'autoload': {'filetypes':['python']}}
     " disable jedi if ycm is used as it is a part of ycm as a submodule
@@ -537,7 +549,8 @@ augroup END
   if count(s:settings.plugin_groups, 'editing') "{{{
     " NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
     NeoBundle 'tpope/vim-endwise'
-    " NeoBundle 'jaxbot/semantic-highlight.vim'
+    NeoBundle 'jaxbot/semantic-highlight.vim'
+      nnoremap <Leader>se :SemanticHighlightToggle<cr>
     NeoBundle 'tpope/vim-speeddating'
     NeoBundle 't9md/vim-quickhl' "{{{
       nmap <leader>m <Plug>(quickhl-manual-this)
@@ -586,7 +599,8 @@ augroup END
       nnoremap <silent> <F5> :GundoToggle<CR>
     "}}}
     NeoBundle 'kien/ctrlp.vim', { 'depends': 'tacahiroy/ctrlp-funky' } "{{{
-      let g:ctrlp_clear_cache_on_exit=1
+      let g:ctrlp_use_caching = 0
+      " let g:ctrlp_clear_cache_on_exit=1
       let g:ctrlp_max_height=40
       let g:ctrlp_show_hidden=0
       let g:ctrlp_follow_symlinks=1
@@ -741,7 +755,6 @@ augroup END
   if count(s:settings.plugin_groups, 'misc') "{{{
     if exists('$TMUX')
       NeoBundle 'christoomey/vim-tmux-navigator'
-      NeoBundle 'benmills/vimux'
     endif
     " NeoBundle 'kana/vim-vspec'
     NeoBundleLazy 'tpope/vim-scriptease', {'autoload':{'filetypes':['vim']}}
@@ -890,7 +903,7 @@ augroup END
   nnoremap Y y$
 
   " hide annoying quit message
-  nnoremap <C-c> <C-c>:echo<cr>
+  " nnoremap <C-c> <C-c>:echo<cr>
 
   " window killer
   nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
@@ -917,6 +930,12 @@ augroup END
     nnoremap <silent> <leader>dq :exe ":profile pause"<cr>:noautocmd qall!<cr>
   "}}}
 "}}}
+"better yank and paste to the end of line
+"easy to repeat paste
+"this is genius credit http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
 
 " commands {{{
   command! -bang Q q<bang>
