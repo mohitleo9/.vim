@@ -131,6 +131,25 @@
     endif
   endfunction "}}}
 
+  " taken from stevelosh learnvimscriptthehardway
+  function! GrepOperator(type)
+    let saved_unnamed_register = @@
+
+    if a:type ==# 'v'
+      normal! `<v`>y
+    elseif a:type ==# 'char'
+      normal! `[v`]y
+    else
+      return
+    endif
+
+    " set the search register for the word
+    let @/ = @@
+
+    silent execute "Ack --" . &filetype . " " . shellescape(@@) . " ."
+
+    let @@ = saved_unnamed_register
+  endfunction
 
   function! YankOnFocusGain() "{{{
     let @l = @*
@@ -813,6 +832,11 @@ augroup END
 "  eval vimscript by line or visual selection
   nmap <silent> <leader>e :call Source(line('.'), line('.'))<CR>
   vmap <silent> <leader>e :call Source(line('v'), line('.'))<CR>
+
+  " grep operator (technically ack)
+  nnoremap g/ :set operatorfunc=GrepOperator<cr>g@
+  vnoremap g/ :<c-u>call GrepOperator(visualmode())<cr>
+
   " formatting shortcuts
   nmap <leader>fef :call Preserve("normal gg=G")<CR>
   nmap <leader>f$ :call StripTrailingWhitespace()<CR>
