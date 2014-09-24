@@ -1,0 +1,11 @@
+snippet log "console.log"
+`!p
+if snip.v.text != '':
+	snip.rv = snip.mkline(snip.v.text + '\n')
+	snip.rv += snip.mkline('console.log ' + '"{0}"'.format(snip.v.text))
+	snip.rv += '\n'
+	snip.rv += snip.mkline('console.log ' + '{0}'.format(snip.v.text))
+else:
+	snip.rv = snip.mkline('console.log "msg"')
+`
+endsnippet
