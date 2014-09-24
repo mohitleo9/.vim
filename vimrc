@@ -340,8 +340,8 @@ augroup END
     NeoBundle 'AndrewRadev/splitjoin.vim'
     NeoBundle 'mohitleo9/vim-fidget',{
             \ 'build' : {
-            \    'unix' : 'npm install -g',
-            \    'mac' : 'npm install -g',
+            \    'unix' : 'npm install',
+            \    'mac' : 'npm install',
             \ },
       \}
     NeoBundle 'matchit.zip'
