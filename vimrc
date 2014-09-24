@@ -146,7 +146,7 @@
     " set the search register for the word
     let @/ = @@
 
-    silent execute "Ack --" . &filetype . " " . shellescape(@@) . " ."
+    silent execute "Ack ". shellescape(@@) . " ."
 
     let @@ = saved_unnamed_register
   endfunction
