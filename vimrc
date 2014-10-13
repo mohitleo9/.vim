@@ -210,6 +210,7 @@ augroup END
   set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮
   set shiftround
   set linebreak
+  set diffopt=filler,vertical
   let &showbreak='↪ '
 
   set scrolloff=1                                     "always show content after scroll
