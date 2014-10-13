@@ -86,6 +86,7 @@
   endif
   set rtp+=~/.vim/bundle/neobundle.vim
   call neobundle#rc(expand('~/.vim/bundle/'))
+  " Let NeoBundle manage NeoBundle
   NeoBundleFetch 'Shougo/neobundle.vim'
 "}}}
 
@@ -336,14 +337,7 @@ augroup END
 
 " plugin/mapping configuration {{{
   if count(s:settings.plugin_groups, 'core') "{{{
-    NeoBundle 'rizzatti/dash.vim'
     NeoBundle 'AndrewRadev/splitjoin.vim'
-    NeoBundle 'mohitleo9/vim-fidget',{
-            \ 'build' : {
-            \    'unix' : 'npm install',
-            \    'mac' : 'npm install',
-            \ },
-      \}
     NeoBundle 'matchit.zip'
     NeoBundle 'bling/vim-airline' "{{{
       let g:airline#extensions#tabline#enabled = 1
@@ -351,7 +345,6 @@ augroup END
       let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
-    NeoBundle 'ton/vim-bufsurf'
     NeoBundle 'kien/rainbow_parentheses.vim' " {{{
     let g:rbpt_max = 10
     let g:rbpt_loadcmd_toggle = 1
@@ -434,6 +427,12 @@ augroup END
         let g:tern_map_keys=1
         let g:tern_show_argument_hits='on_hold'
     " }}}
+    NeoBundle 'mohitleo9/vim-fidget',{
+            \ 'build' : {
+            \    'unix' : 'npm install',
+            \    'mac' : 'npm install',
+            \ },
+      \}
     " NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
     NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
     NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}} "{{{
