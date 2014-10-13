@@ -345,20 +345,9 @@ augroup END
       let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
-    NeoBundle 'kien/rainbow_parentheses.vim' " {{{
-    let g:rbpt_max = 10
-    let g:rbpt_loadcmd_toggle = 1
-    let g:rbpt_colorpairs = [['red', 'red1'],
-                           \ ['yellow', 'orange1'],
-                           \ ['green', 'yellow1'],
-                           \ ['cyan', 'greenyellow'],
-                           \ ['magenta', 'green1'],
-                           \ ['red', 'springgreen1'],
-                           \ ['yellow', 'cyan1'],
-                           \ ['green', 'slateblue1'],
-                           \ ['cyan', 'magenta1'],
-                           \ ['magenta', 'purple1']]
-    " }}}
+    NeoBundle 'oblitum/rainbow'
+    let g:rainbow_active = 1
+
     " this plugin overrides the default text objects in vim and first make them multiline and also provides
     " some new operators such as , _ etc
     NeoBundle 'wellle/targets.vim'
