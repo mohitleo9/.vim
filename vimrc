@@ -346,8 +346,9 @@ augroup END
       let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
-    NeoBundle 'oblitum/rainbow'
-    let g:rainbow_active = 1
+    NeoBundle 'oblitum/rainbow' "{{{
+      let g:rainbow_active = 1
+    "}}}
 
     " this plugin overrides the default text objects in vim and first make them multiline and also provides
     " some new operators such as , _ etc
