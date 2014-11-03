@@ -192,6 +192,8 @@ augroup END
   set showfulltag
   set modeline
   set modelines=5
+  set nosol                                           "this keeps the cursor in the same column when you hit G in visual block mode
+  set noshelltemp                                     "use pipes
 
   if s:is_windows && !s:is_cygwin
     " ensure correct shell in gvim
@@ -339,6 +341,7 @@ augroup END
 " plugin/mapping configuration {{{
   if count(s:settings.plugin_groups, 'core') "{{{
     NeoBundle 'AndrewRadev/splitjoin.vim'
+    NeoBundle 'ton/vim-bufsurf'
     NeoBundle 'matchit.zip'
     NeoBundle 'bling/vim-airline' "{{{
       let g:airline#extensions#tabline#enabled = 1
@@ -346,8 +349,8 @@ augroup END
       let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
-    NeoBundle 'oblitum/rainbow' "{{{
-      let g:rainbow_active = 1
+    " NeoBundle 'oblitum/rainbow' "{{{
+      " let g:rainbow_active = 1
     "}}}
 
     " this plugin overrides the default text objects in vim and first make them multiline and also provides
@@ -405,7 +408,7 @@ augroup END
   endif "}}}
   if count(s:settings.plugin_groups, 'javascript') "{{{
     NeoBundleLazy 'marijnh/tern_for_vim', {
-      \ 'autoload': { 'filetypes': ['javascript'] },
+      \ 'autoload': { 'filetypes': ['javascript', 'coffee'] },
       \ 'build': {
         \ 'mac': 'npm install',
         \ 'unix': 'npm install',
@@ -418,6 +421,7 @@ augroup END
         let g:tern_map_keys=1
         let g:tern_show_argument_hits='on_hold'
     " }}}
+    NeoBundleLazy 'othree/tern_for_vim_coffee', { 'filetypes':['coffee'] }
     NeoBundle 'mohitleo9/vim-fidget',{
             \ 'build' : {
             \    'unix' : 'npm install',
@@ -430,7 +434,7 @@ augroup END
       nnoremap <leader>fjs :call JsBeautify()<cr>
     "}}}
     NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
-    NeoBundleLazy 'matthewsimo/angular-vim-snippets', {'autoload':{'filetypes':['coffeescript, javascript']}}
+    NeoBundleLazy 'matthewsimo/angular-vim-snippets', {'autoload':{'filetypes':['coffee', 'javascript']}}
     NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}} "{{{
     " }}}
 
@@ -501,6 +505,7 @@ augroup END
     NeoBundle 'tpope/vim-git'
     NeoBundleLazy 'gregsexton/gitv', {'depends':['tpope/vim-fugitive'], 'autoload':{'commands':'Gitv'}} "{{{
       nnoremap <silent> <leader>gv :Gitv<CR>
+      let g:Gitv_DoNotMapCtrlKey = 0
       nnoremap <silent> <leader>gV :Gitv!<CR>
     "}}}
   endif "}}}
@@ -570,7 +575,6 @@ augroup END
     NeoBundle 'thinca/vim-visualstar'
     NeoBundle 'tomtom/tcomment_vim'
     NeoBundle 'terryma/vim-multiple-cursors'
-    NeoBundle 'chrisbra/NrrwRgn'
     NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}} "{{{
       nmap <Leader>a& :Tabularize /&<CR>
       vmap <Leader>a& :Tabularize /&<CR>
@@ -767,6 +771,7 @@ augroup END
     endif
     " NeoBundle 'kana/vim-vspec'
     NeoBundleLazy 'tpope/vim-scriptease', {'autoload':{'filetypes':['vim']}}
+    NeoBundle 'chrisbra/csv.vim'
     NeoBundleLazy 'tpope/vim-markdown', {'autoload':{'filetypes':['markdown']}}
     NeoBundleLazy 'chikamichi/mediawiki.vim', {'autoload':{'filetypes':['mediawiki']}}
     if executable('redcarpet') && executable('instant-markdown-d')
