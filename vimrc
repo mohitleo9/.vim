@@ -342,6 +342,18 @@ augroup END
   if count(s:settings.plugin_groups, 'core') "{{{
     NeoBundle 'AndrewRadev/splitjoin.vim'
     NeoBundle 'ton/vim-bufsurf'
+    NeoBundle 'epeli/slimux'
+
+    " try out differnt ideas in a very simple way
+    NeoBundle 't9md/vim-tryit' "{{{
+      let g:tryit_dir = "/tmp"
+      nmap T <Plug>(tryit-this)
+      xmap T <Plug>(tryit-this)
+      nmap <leader>t <Plug>(tryit-ask)
+      xmap <leader>t <Plug>(tryit-ask)
+      nmap <leader>tp :Tryit py<cr>
+      nmap <leader>tc :Tryit cl<cr>
+    "}}}
     NeoBundle 'matchit.zip'
     NeoBundle 'bling/vim-airline' "{{{
       let g:airline#extensions#tabline#enabled = 1
