@@ -361,9 +361,8 @@ augroup END
       let g:airline_theme="luna"
     "}}}
     NeoBundle 'tpope/vim-surround'
-    " NeoBundle 'oblitum/rainbow' "{{{
-      " let g:rainbow_active = 1
-    "}}}
+    " rainbow parentheses for lisp like languages
+    NeoBundle 'amdt/vim-niji'
 
     " this plugin overrides the default text objects in vim and first make them multiline and also provides
     " some new operators such as , _ etc
@@ -925,10 +924,6 @@ augroup END
     nnoremap <C-k> <C-w>k
     nnoremap <C-l> <C-w>l
   "}}}
-
-  " tab shortcuts
-  map <leader>tn :tabnew<CR>
-  map <leader>tc :tabclose<CR>
 
   " make Y consistent with C and D. See :help Y.
   nnoremap Y y$
