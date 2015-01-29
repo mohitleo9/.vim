@@ -4,9 +4,9 @@ let g:dotvim_settings.default_indent = 4
 " ycm does not work
 let g:dotvim_settings.autocomplete_method='ycm'
 let g:dotvim_settings.enable_cursorcolumn = 1
-let g:dotvim_settings.plugin_groups_include = ['python', 'javascript', 'web']
+let g:dotvim_settings.plugin_groups_include = ['python', 'javascript', 'web', 'clojure']
 " the theme
-let g:dotvim_settings.colorscheme = 'molokai'
+let g:dotvim_settings.colorscheme = 'solarized'
 let g:molokai_original = 1
 let g:quickhl_manual_enable_at_startup=1
 

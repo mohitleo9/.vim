@@ -40,6 +40,7 @@
     call add(s:settings.plugin_groups, 'ruby')
     call add(s:settings.plugin_groups, 'python')
     call add(s:settings.plugin_groups, 'scala')
+    call add(s:settings.plugin_groups, 'clojure')
     call add(s:settings.plugin_groups, 'go')
     call add(s:settings.plugin_groups, 'scm')
     call add(s:settings.plugin_groups, 'editing')
@@ -485,6 +486,13 @@ augroup END
     NeoBundle 'derekwyatt/vim-scala'
     NeoBundle 'megaannum/vimside'
   endif "}}}
+
+  if count(s:settings.plugin_groups, 'clojure') "{{{
+    NeoBundle 'guns/vim-clojure-static'
+    NeoBundle 'guns/vim-sexp'
+    NeoBundle 'tpope/vim-fireplace'
+  endif "}}}
+
   if count(s:settings.plugin_groups, 'go') "{{{
     NeoBundleLazy 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
     NeoBundleLazy 'nsf/gocode', {'autoload': {'filetypes':['go']}, 'rtp': 'vim'}
@@ -672,8 +680,13 @@ augroup END
       function! bundle.hooks.on_source(bundle)
         call unite#filters#matcher_default#use(['matcher_fuzzy'])
         call unite#filters#sorter_default#use(['sorter_rank'])
-        call unite#set_profile('files', 'smartcase', 1)
+        " call unite#set_profile('files', 'smartcase', 1)
         call unite#custom#source('line,outline','matchers','matcher_fuzzy')
+        call unite#custom#profile('default', 'context', {
+              \ 'start_insert': 1,
+              \ 'direction': 'botright',
+              \ })
+        " call unite#custom#source('line,outline','matchers','matcher_fuzzy')
       endfunction
 
       let g:unite_data_directory='~/.vim/.cache/unite'
@@ -772,6 +785,7 @@ augroup END
   endif "}}}
   if count(s:settings.plugin_groups, 'textobj') "{{{
     NeoBundle 'kana/vim-textobj-user'
+    NeoBundle 'kana/vim-textobj-line'
     NeoBundle 'kana/vim-textobj-indent'
     NeoBundle 'kana/vim-textobj-entire'
     " NeoBundle 'lucapette/vim-textobj-underscore'
