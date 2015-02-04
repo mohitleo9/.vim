@@ -341,7 +341,17 @@ augroup END
 
 " plugin/mapping configuration {{{
   if count(s:settings.plugin_groups, 'core') "{{{
+
     NeoBundle 'AndrewRadev/splitjoin.vim'
+    NeoBundle 'mohitleo9/vim-interestingwords' " {{{
+      nnoremap <silent> <leader>m :call InterestingWords('n')<cr>
+      nnoremap <silent> <leader>M :call UncolorAllWords()<cr>
+
+      nnoremap <silent> n :call WordNavigation('forward')<cr>
+      nnoremap <silent> N :call WordNavigation('backward')<cr>
+      let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
+
+    " }}}
     NeoBundle 'ton/vim-bufsurf'
     NeoBundle 'epeli/slimux'
 
@@ -353,7 +363,7 @@ augroup END
       nmap <leader>t <Plug>(tryit-ask)
       xmap <leader>t <Plug>(tryit-ask)
       nmap <leader>tp :Tryit py<cr>
-      nmap <leader>tc :Tryit cl<cr>
+      nmap <leader>tc :Tryit clj<cr>
     "}}}
     NeoBundle 'matchit.zip'
     NeoBundle 'bling/vim-airline' "{{{
@@ -585,12 +595,6 @@ augroup END
     NeoBundle 'jaxbot/semantic-highlight.vim'
       nnoremap <Leader>se :SemanticHighlightToggle<cr>
     NeoBundle 'tpope/vim-speeddating'
-    NeoBundle 't9md/vim-quickhl' "{{{
-      nmap <leader>m <Plug>(quickhl-manual-this)
-      xmap <leader>m <Plug>(quickhl-manual-this)
-      nmap <leader>M <Plug>(quickhl-manual-reset)
-      xmap <leader>M <Plug>(quickhl-manual-reset)
-    "}}}
     NeoBundle 'thinca/vim-visualstar'
     NeoBundle 'tomtom/tcomment_vim'
     NeoBundle 'terryma/vim-multiple-cursors'
