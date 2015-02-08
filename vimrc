@@ -343,15 +343,8 @@ augroup END
   if count(s:settings.plugin_groups, 'core') "{{{
 
     NeoBundle 'AndrewRadev/splitjoin.vim'
-    NeoBundle 'mohitleo9/vim-interestingwords' " {{{
-      nnoremap <silent> <leader>m :call InterestingWords('n')<cr>
-      nnoremap <silent> <leader>M :call UncolorAllWords()<cr>
 
-      nnoremap <silent> n :call WordNavigation('forward')<cr>
-      nnoremap <silent> N :call WordNavigation('backward')<cr>
-      let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
-
-    " }}}
+    NeoBundle 't9md/vim-quickhl'
     NeoBundle 'ton/vim-bufsurf'
     NeoBundle 'epeli/slimux'
 
@@ -612,7 +605,7 @@ augroup END
       nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
       vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
     "}}}
-    NeoBundle 'jiangmiao/auto-pairs'
+    NeoBundle 'kana/vim-smartinput'
     NeoBundle 'Lokaltog/vim-easymotion' "{{{
     " replace the default search not kidding
     " use smartcase
