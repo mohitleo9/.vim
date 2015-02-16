@@ -343,8 +343,12 @@ augroup END
   if count(s:settings.plugin_groups, 'core') "{{{
 
     NeoBundle 'AndrewRadev/splitjoin.vim'
-
-    NeoBundle 't9md/vim-quickhl'
+    NeoBundle 't9md/vim-quickhl' "{{{
+      nmap <leader>m <Plug>(quickhl-manual-this)
+      xmap <leader>m <Plug>(quickhl-manual-this)
+      nmap <leader>M <Plug>(quickhl-manual-reset)
+      xmap <leader>M <Plug>(quickhl-manual-reset)
+    "}}}
     NeoBundle 'ton/vim-bufsurf'
     NeoBundle 'epeli/slimux'
 
@@ -492,8 +496,12 @@ augroup END
 
   if count(s:settings.plugin_groups, 'clojure') "{{{
     NeoBundle 'guns/vim-clojure-static'
-    NeoBundle 'guns/vim-sexp'
+    NeoBundle 'guns/vim-sexp' "{{{
+      let g:sexp_enable_insert_mode_mappings = 0
+    " }}}
     NeoBundle 'tpope/vim-fireplace'
+    NeoBundle 'tpope/vim-sexp-mappings-for-regular-people'
+    NeoBundle 'dgrnbrg/vim-redl'
   endif "}}}
 
   if count(s:settings.plugin_groups, 'go') "{{{
@@ -605,6 +613,7 @@ augroup END
       nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
       vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
     "}}}
+    " Interferes with clojure
     NeoBundle 'kana/vim-smartinput'
     NeoBundle 'Lokaltog/vim-easymotion' "{{{
     " replace the default search not kidding
@@ -989,7 +998,7 @@ nnoremap <silent> p p`]
           \  exe 'normal! g`"zvzz' |
           \ endif
 
-    autocmd FileType js,scss,css,python,coffee,vim autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+    autocmd FileType js,scss,css,python,coffee,vim,clojure autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
     autocmd FileType css,scss nnoremap <silent> <leader>S vi{:sort<CR>
     autocmd FileType python setlocal foldmethod=indent
