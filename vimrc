@@ -1,5 +1,6 @@
 " vim: fdm=marker ts=2 sts=2 sw=2 fdl=9
 
+autocmd VimEnter,VimLeave * silent execute "!clearVim"
 " detect OS {{{
   let s:is_windows = has('win32') || has('win64')
   let s:is_cygwin = has('win32unix')
