@@ -549,6 +549,10 @@ augroup END
             \    'mac' : './install.sh --clang-completer',
             \ },
       \} "{{{
+
+        let g:ycm_semantic_triggers = {}
+        let g:ycm_semantic_triggers.clojure = ['(']
+
         let g:ycm_complete_in_comments_and_strings=1
         nnoremap <leader>jd :YcmCompleter GoTo<CR>
         let g:ycm_collect_identifiers_from_comments_and_strings = 1
