@@ -1,6 +1,21 @@
 <?xml version="1.0"?>
 <root>
     <item>
+        <name> CUSTOM Home Row Numbers Overlay with Space custom</name>
+        <appendix>Overlay 1234567890 onto the home row when FN is pressed and space is mapped to FN </appendix>
+        <identifier>private.homerow_numbers_space_fn</identifier>
+        <autogen>__KeyToKey__ KeyCode::A, ModifierFlag::FN, KeyCode::KEY_1</autogen>
+        <autogen>__KeyToKey__ KeyCode::S, ModifierFlag::FN, KeyCode::KEY_2</autogen>
+        <autogen>__KeyToKey__ KeyCode::D, ModifierFlag::FN, KeyCode::KEY_3</autogen>
+        <autogen>__KeyToKey__ KeyCode::F, ModifierFlag::FN, KeyCode::KEY_4</autogen>
+        <autogen>__KeyToKey__ KeyCode::G, ModifierFlag::FN, KeyCode::KEY_5</autogen>
+        <autogen>__KeyToKey__ KeyCode::H, ModifierFlag::FN, KeyCode::KEY_6</autogen>
+        <autogen>__KeyToKey__ KeyCode::J, ModifierFlag::FN, KeyCode::KEY_7</autogen>
+        <autogen>__KeyToKey__ KeyCode::K, ModifierFlag::FN, KeyCode::KEY_8</autogen>
+        <autogen>__KeyToKey__ KeyCode::L, ModifierFlag::FN, KeyCode::KEY_9</autogen>
+        <autogen>__KeyToKey__ KeyCode::SEMICOLON, ModifierFlag::FN, KeyCode::KEY_0</autogen>
+    </item>
+    <item>
         <name>f19 to f19</name>
         <appendix>(+ When you type f19 only, send Escape)</appendix>
         <identifier>private.f19_to_f19_and_escape</identifier>
