@@ -175,7 +175,7 @@ augroup END
 "}}}
 
 " base configuration {{{
-  set timeoutlen=300                                  "mapping timeout
+  set timeoutlen=500                                  "mapping timeout
   set ttimeoutlen=50                                  "keycode timeout default set here was 50
 
   set mouse=a                                         "enable mouse
@@ -369,7 +369,10 @@ augroup END
       let g:airline_powerline_fonts = 1
       let g:airline_theme="luna"
     "}}}
-    NeoBundle 'tpope/vim-surround'
+    NeoBundle 'tpope/vim-surround' "{{{
+    " trial
+      nmap s <Plug>Ysurround
+    " }}}
     " rainbow parentheses for lisp like languages
     NeoBundle 'amdt/vim-niji'
 
@@ -501,7 +504,43 @@ augroup END
       let g:sexp_enable_insert_mode_mappings = 0
     " }}}
     NeoBundle 'tpope/vim-fireplace'
-    NeoBundle 'tpope/vim-sexp-mappings-for-regular-people'
+    " NeoBundle 'tpope/vim-sexp-mappings-for-regular-people' " {{{
+      " These are a bunch of mappings from
+      " tpope/vim-sexp-mappings-for-regular-people.
+      function! s:sexp_mappings() abort
+
+        nmap <buffer> dsf <Plug>(sexp_raise_list)
+
+        nmap <buffer> B   <Plug>(sexp_move_to_prev_element_head)
+        nmap <buffer> W   <Plug>(sexp_move_to_next_element_head)
+        nmap <buffer> gE  <Plug>(sexp_move_to_prev_element_tail)
+        nmap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
+        xmap <buffer> B   <Plug>(sexp_move_to_prev_element_head)
+        xmap <buffer> W   <Plug>(sexp_move_to_next_element_head)
+        xmap <buffer> gE  <Plug>(sexp_move_to_prev_element_tail)
+        xmap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
+        omap <buffer> B   <Plug>(sexp_move_to_prev_element_head)
+        omap <buffer> W   <Plug>(sexp_move_to_next_element_head)
+        omap <buffer> gE  <Plug>(sexp_move_to_prev_element_tail)
+        omap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
+
+        nmap <buffer> <I  <Plug>(sexp_insert_at_list_head)
+        nmap <buffer> >I  <Plug>(sexp_insert_at_list_tail)
+        nmap <buffer> <f  <Plug>(sexp_swap_list_backward)
+        nmap <buffer> >f  <Plug>(sexp_swap_list_forward)
+        nmap <buffer> <e  <Plug>(sexp_swap_element_backward)
+        nmap <buffer> >e  <Plug>(sexp_swap_element_forward)
+        nmap <buffer> >(  <Plug>(sexp_emit_head_element)
+        nmap <buffer> <)  <Plug>(sexp_emit_tail_element)
+        nmap <buffer> <(  <Plug>(sexp_capture_prev_element)
+        nmap <buffer> >)  <Plug>(sexp_capture_next_element)
+      endfunction
+      augroup sexp_mappings_for_regular_people
+        autocmd!
+        execute 'autocmd FileType' get(g:, 'sexp_filetypes', 'lisp,scheme,clojure') 'call s:sexp_mappings()'
+      augroup END
+    " }}}
+
     NeoBundle 'dgrnbrg/vim-redl'
   endif "}}}
 
