@@ -149,7 +149,7 @@ autocmd VimEnter,VimLeave * silent execute "!clearVim"
     " set the search register for the word
     let @/ = @@
 
-    silent execute "Ack ". shellescape(@@) . " ."
+    silent execute "Ack ". shellescape(@@, 1)
 
     let @@ = saved_unnamed_register
   endfunction
@@ -344,6 +344,8 @@ augroup END
   if count(s:settings.plugin_groups, 'core') "{{{
 
     NeoBundle 'AndrewRadev/splitjoin.vim'
+
+    NeoBundle 'rodjek/vim-puppet'
     NeoBundle 't9md/vim-quickhl' "{{{
       nmap <leader>m <Plug>(quickhl-manual-this)
       xmap <leader>m <Plug>(quickhl-manual-this)
