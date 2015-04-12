@@ -376,7 +376,8 @@ augroup END
       nmap s <Plug>Ysurround
     " }}}
     " rainbow parentheses for lisp like languages
-    NeoBundle 'amdt/vim-niji'
+    NeoBundle 'luochen1990/rainbow'
+    let g:rainbow_active = 1
 
     " this plugin overrides the default text objects in vim and first make them multiline and also provides
     " some new operators such as , _ etc
