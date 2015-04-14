@@ -168,7 +168,7 @@ autocmd VimEnter,VimLeave * silent execute "!clearVim"
 augroup newFiletypes
   autocmd!
   autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-  autocmd FileType coffee so /Users/mohitaggarwal/.vim/coffeeplugin.vim
+  autocmd FileType coffee so ~/.vim/coffeeplugin.vim
   autocmd BufNewFile,BufRead *.handlebars set filetype=handlebars
   autocmd BufNewFile,BufRead *.wiki set filetype=mediawiki
 augroup END
@@ -376,8 +376,8 @@ augroup END
       nmap s <Plug>Ysurround
     " }}}
     " rainbow parentheses for lisp like languages
-    NeoBundle 'luochen1990/rainbow'
-    let g:rainbow_active = 1
+    " NeoBundle 'luochen1990/rainbow'
+    " let g:rainbow_active = 1
 
     " this plugin overrides the default text objects in vim and first make them multiline and also provides
     " some new operators such as , _ etc
@@ -451,7 +451,7 @@ augroup END
     NeoBundle 'mohitleo9/vim-fidget',{
             \ 'build' : {
             \    'unix' : 'npm install',
-            \    'mac' : 'npm install',
+            \    'mac' : 'npm install --production',
             \ },
       \}
     " NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
@@ -684,8 +684,8 @@ augroup END
       nnoremap <silent> <F5> :GundoToggle<CR>
     "}}}
     NeoBundle 'kien/ctrlp.vim', { 'depends': 'tacahiroy/ctrlp-funky' } "{{{
-      let g:ctrlp_use_caching = 0
-      " let g:ctrlp_clear_cache_on_exit=1
+      let g:ctrlp_use_caching = 1
+      let g:ctrlp_clear_cache_on_exit=1
       let g:ctrlp_max_height=40
       let g:ctrlp_show_hidden=0
       let g:ctrlp_follow_symlinks=1
@@ -703,19 +703,19 @@ augroup END
       if s:is_windows
         let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
       elseif executable('ag')
-        let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+        let g:ctrlp_user_command = 'ag %s --nocolor -l -g ""'
       elseif executable('ack')
         let s:ctrlp_fallback = 'ack %s --nocolor -f'
       else
         let s:ctrlp_fallback = 'find %s -type f'
       endif
-      let g:ctrlp_user_command = {
-            \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-            \ },
-            \ 'fallback': s:ctrlp_fallback
-            \ }
+      " let g:ctrlp_user_command = {
+      "       \ 'types': {
+      "       \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+      "       \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+      "       \ },
+      "       \ 'fallback': s:ctrlp_fallback
+      "       \ }
 
       nmap \ [ctrlp]
       nnoremap [ctrlp] <nop>
@@ -1045,7 +1045,7 @@ nnoremap <silent> p p`]
           \  exe 'normal! g`"zvzz' |
           \ endif
 
-    autocmd FileType js,scss,css,python,coffee,vim,clojure autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+    autocmd FileType javascript,scss,css,python,coffee,vim,clojure autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
     autocmd FileType css,scss nnoremap <silent> <leader>S vi{:sort<CR>
     autocmd FileType python setlocal foldmethod=indent
