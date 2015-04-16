@@ -344,7 +344,8 @@ augroup END
   if count(s:settings.plugin_groups, 'core') "{{{
 
     NeoBundle 'AndrewRadev/splitjoin.vim'
-
+    NeoBundle 'AndrewRadev/linediff.vim'
+    NeoBundle 'chrisbra/NrrwRgn'
     NeoBundle 'rodjek/vim-puppet'
     NeoBundle 't9md/vim-quickhl' "{{{
       nmap <leader>m <Plug>(quickhl-manual-this)
@@ -445,6 +446,7 @@ augroup END
     " {{{
         " tern config
         let g:tern_map_keys=1
+        autocmd FileType javascript nmap <buffer> <leader>jd :TernDef<cr>
         let g:tern_show_argument_hits='on_hold'
     " }}}
     NeoBundleLazy 'othree/tern_for_vim_coffee', { 'filetypes':['coffee'] }
@@ -461,6 +463,7 @@ augroup END
     "}}}
     NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
     NeoBundleLazy 'matthewsimo/angular-vim-snippets', {'autoload':{'filetypes':['coffee', 'javascript']}}
+    NeoBundleLazy 'burnettk/vim-angular', {'autoload':{'filetypes':['coffee', 'javascript']}}
     NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}} "{{{
     " }}}
 
