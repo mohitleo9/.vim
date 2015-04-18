@@ -344,6 +344,8 @@ augroup END
   if count(s:settings.plugin_groups, 'core') "{{{
 
     NeoBundle 'AndrewRadev/splitjoin.vim'
+    NeoBundle 'majutsushi/tagbar' "{{{
+    " }}}
     NeoBundle 'AndrewRadev/linediff.vim'
     NeoBundle 'chrisbra/NrrwRgn'
     NeoBundle 'rodjek/vim-puppet'

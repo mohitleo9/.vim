@@ -32,7 +32,10 @@ augroup pyrun
   au FileType python nnoremap <leader>r :!python %<cr>
 augroup END
 " other kinds of customizations go here
-set guifont=menlo\ for\ powerline:h18
+if has('gui_running')
+  set guifont=menlo\ for\ powerline:h18
+  highlight TagbarHighlight guibg=DarkGreen guifg=White
+endif
 set nowrap
 " highlight Pmenu guibg=DarkGreen guifg=White
 if g:dotvim_settings.colorscheme ==# 'molokai'
