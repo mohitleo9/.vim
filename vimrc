@@ -345,8 +345,10 @@ augroup END
 
     NeoBundle 'AndrewRadev/splitjoin.vim'
     NeoBundle 'majutsushi/tagbar' "{{{
+      let g:tagbar_sort = 0
     " }}}
     NeoBundle 'AndrewRadev/linediff.vim'
+    NeoBundle 'editorconfig/editorconfig-vim'
     NeoBundle 'chrisbra/NrrwRgn'
     NeoBundle 'rodjek/vim-puppet'
     NeoBundle 't9md/vim-quickhl' "{{{
@@ -680,7 +682,7 @@ augroup END
   if count(s:settings.plugin_groups, 'navigation') "{{{
     NeoBundle 'mileszs/ack.vim' "{{{
       if executable('ag')
-        let g:ackprg = "ag --nogroup --column --smart-case --follow"
+        let g:ackprg = "ag --hidden --nogroup --column --smart-case --follow"
       endif
     "}}}
     NeoBundleLazy 'sjl/gundo.vim', {'autoload':{'commands':'GundoToggle'}} "{{{
@@ -692,7 +694,7 @@ augroup END
       let g:ctrlp_use_caching = 1
       let g:ctrlp_clear_cache_on_exit=1
       let g:ctrlp_max_height=40
-      let g:ctrlp_show_hidden=0
+      let g:ctrlp_show_hidden=1
       let g:ctrlp_follow_symlinks=1
       let g:ctrlp_working_path_mode = 'ra'
       let g:ctrlp_max_files=20000
@@ -708,7 +710,7 @@ augroup END
       if s:is_windows
         let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
       elseif executable('ag')
-        let g:ctrlp_user_command = 'ag %s --nocolor -l -g ""'
+        let g:ctrlp_user_command = 'ag --hidden %s --nocolor -l -g ""'
       elseif executable('ack')
         let s:ctrlp_fallback = 'ack %s --nocolor -f'
       else
