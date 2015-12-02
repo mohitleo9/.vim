@@ -453,7 +453,7 @@ augroup END
         autocmd FileType javascript nmap <buffer> <leader>jd :TernDef<cr>
         let g:tern_show_argument_hits='on_hold'
     " }}}
-    NeoBundleLazy 'othree/tern_for_vim_coffee', { 'filetypes':['coffee'] }
+    " NeoBundleLazy 'othree/tern_for_vim_coffee', { 'filetypes':['coffee'] }
     NeoBundle 'mohitleo9/vim-fidget',{
             \ 'build' : {
             \    'unix' : 'npm install',
@@ -465,7 +465,7 @@ augroup END
     NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}} "{{{
       nnoremap <leader>fjs :call JsBeautify()<cr>
     "}}}
-    NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
+    NeoBundleLazy 'mxw/vim-jsx'
     NeoBundleLazy 'matthewsimo/angular-vim-snippets', {'autoload':{'filetypes':['coffee', 'javascript']}}
     NeoBundleLazy 'burnettk/vim-angular', {'autoload':{'filetypes':['coffee', 'javascript']}}
     NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}} "{{{
@@ -668,7 +668,8 @@ augroup END
       vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
     "}}}
     " Interferes with clojure
-    NeoBundle 'kana/vim-smartinput'
+    " NeoBundle 'kana/vim-smartinput'
+    NeoBundle 'Raimondi/delimitMate'
     NeoBundle 'Lokaltog/vim-easymotion' "{{{
     " replace the default search not kidding
     " use smartcase
@@ -885,6 +886,7 @@ augroup END
       let g:syntastic_warning_symbol = '∆'
       let g:syntastic_style_warning_symbol = '≈'
       let g:syntastic_aggregate_errors = 1
+      let g:syntastic_javascript_checkers = ['eslint']
     "}}}
     NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } } "{{{
       let g:gist_post_private=1
@@ -902,10 +904,6 @@ augroup END
       let g:goldenview__enable_default_mapping=0
       nmap <F4> <Plug>ToggleGoldenViewAutoResize
     "}}}
-  endif "}}}
-  if count(s:settings.plugin_groups, 'windows') "{{{
-    NeoBundleLazy 'PProvost/vim-ps1', {'autoload':{'filetypes':['ps1']}}
-    NeoBundleLazy 'nosami/Omnisharp', {'autoload':{'filetypes':['cs']}}
   endif "}}}
 
 " mappings {{{
