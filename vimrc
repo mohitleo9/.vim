@@ -1050,7 +1050,7 @@ nnoremap <silent> p p`]
           \  exe 'normal! g`"zvzz' |
           \ endif
 
-    autocmd FileType javascript,scss,css,python,coffee,vim,clojure autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+    " autocmd FileType javascript,scss,css,python,coffee,vim,clojure autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     autocmd FileType css,scss setlocal foldmethod=marker foldmarker={,}
     autocmd FileType css,scss nnoremap <silent> <leader>S vi{:sort<CR>
     autocmd FileType python setlocal foldmethod=indent
