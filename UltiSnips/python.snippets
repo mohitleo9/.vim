@@ -11,3 +11,37 @@ endsnippet
 snippet npdb "puts a nose set trace pdb"
 from nose.tools import set_trace; set_trace()
 endsnippet
+
+
+snippet super "Adds a super function for the current function" b
+`!p
+import vim
+# get the class name
+line_number = int(vim.eval('search("class .*(", "bn")'))
+line = vim.current.buffer[line_number - 1]
+class_name = re.findall(r'class\s+(.*?)\s*\(', line)[0]
+# get the function signature
+line_number = int(vim.eval('search("def.*self.*", "bn")'))
+line = vim.current.buffer[line_number - 1]
+func = re.findall(r'def\s+(.*):', line)[0]
+matches = re.findall(r'(.*)\(self,?\s*(.*)\)', func)
+snip.rv = 'super(%s, self).%s(%s)' % (class_name, matches[0][0], matches[0][1])
+`
+endsnippet
+
+
+snippet superc "Adds a super function for the current class function" b
+`!p
+import vim
+# get the class name
+line_number = int(vim.eval('search("class .*(", "bn")'))
+line = vim.current.buffer[line_number - 1]
+class_name = re.findall(r'class\s+(.*?)\s*\(', line)[0]
+# get the function signature
+line_number = int(vim.eval('search("def.*cls*", "bn")'))
+line = vim.current.buffer[line_number - 1]
+func = re.findall(r'def\s+(.*):', line)[0]
+matches = re.findall(r'(.*)\(cls,?\s*(.*)\)', func)
+snip.rv = 'super(%s, cls).%s(%s)' % (class_name, matches[0][0], matches[0][1])
+`
+endsnippet
