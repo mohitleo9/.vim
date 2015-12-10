@@ -346,6 +346,7 @@ augroup END
     NeoBundle 'AndrewRadev/splitjoin.vim'
     NeoBundle 'majutsushi/tagbar' "{{{
       let g:tagbar_sort = 0
+      nmap <leader>t :TagbarToggle<CR>
     " }}}
     NeoBundle 'AndrewRadev/linediff.vim'
     NeoBundle 'editorconfig/editorconfig-vim'
@@ -365,10 +366,10 @@ augroup END
       let g:tryit_dir = "/tmp"
       nmap T <Plug>(tryit-this)
       xmap T <Plug>(tryit-this)
-      nmap <leader>t <Plug>(tryit-ask)
-      xmap <leader>t <Plug>(tryit-ask)
-      nmap <leader>tp :Tryit py<cr>
-      nmap <leader>tc :Tryit clj<cr>
+      " nmap <leader>t <Plug>(tryit-ask)
+      " xmap <leader>t <Plug>(tryit-ask)
+      " nmap <leader>tp :Tryit py<cr>
+      " nmap <leader>tc :Tryit clj<cr>
     "}}}
     NeoBundle 'matchit.zip'
     NeoBundle 'bling/vim-airline' "{{{
