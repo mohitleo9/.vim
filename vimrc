@@ -153,14 +153,20 @@ autocmd VimEnter,VimLeave * silent execute "!clearVim"
     let @@ = saved_unnamed_register
   endfunction
 
-  function! PythonTestUnderCursor()
+  function! PythonTestUnderCursor(type)
     let filename = @%
     let classNameLine = search('\<class\> .*:', 'bnW')
     let className = matchstr(getline(classNameLine), '\<class\> \zs.*\ze(')
     let funcLine = search('\<def\> .*:', 'bnW')
     let funcName = matchstr(getline(funcLine), '\<def\> \zs.*\ze(')
 
-    execute "SlimuxShellRun nosetests ". filename .":" .className ."." .funcName
+    if a:type ==# 'func'
+      execute "SlimuxShellRun nosetests ". filename .":" .className ."." .funcName
+    elseif a:type ==# 'class'
+      execute "SlimuxShellRun nosetests ". filename .":" .className
+    else
+      execute "SlimuxShellRun nosetests ". filename
+    endif
   endfunction
 
   function! YankOnFocusGain() "{{{
@@ -920,7 +926,13 @@ augroup END
 "  eval vimscript by line or visual selection
   nmap <silent> <leader>e :call Source(line('.'), line('.'))<CR>
   vmap <silent> <leader>e :call Source(line('v'), line('.'))<CR>
-  nmap <leader>t :<c-u>call PythonTestUnderCursor()<cr>
+
+  augroup pythonTests
+    au!
+    autocmd FileType python nmap <leader>t :<c-u>call PythonTestUnderCursor("func")<cr>
+    autocmd FileType python nmap <leader>tc :<c-u>call PythonTestUnderCursor("class")<cr>
+    autocmd FileType python nmap <leader>tf :<c-u>call PythonTestUnderCursor("file")<cr>
+  augroup End
 
   " grep operator (technically ack)
   nnoremap g/ :set operatorfunc=GrepOperator<cr>g@
