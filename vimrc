@@ -149,7 +149,7 @@ autocmd VimEnter,VimLeave * silent execute "!clearVim"
     " set the search register for the word
     let @/ = @@
 
-    silent execute "Ack ". shellescape(@@, 1)
+    silent execute "Ack '". escape(@@, '.^$*+?()[{\|') ."'"
 
     let @@ = saved_unnamed_register
   endfunction

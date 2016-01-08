@@ -13,7 +13,7 @@ from nose.tools import set_trace; set_trace()
 endsnippet
 
 
-snippet super "Adds a super function for the current function" b
+snippet super "Adds a super function for the current function" w
 `!p
 import vim
 # get the class name
@@ -30,7 +30,7 @@ snip.rv = 'super(%s, self).%s(%s)' % (class_name, matches[0][0], matches[0][1])
 endsnippet
 
 
-snippet superc "Adds a super function for the current class function" b
+snippet superc "Adds a super function for the current class function" w
 `!p
 import vim
 # get the class name
