@@ -145,13 +145,22 @@ autocmd VimEnter,VimLeave * silent execute "!clearVim"
     else
       return
     endif
-
     " set the search register for the word
     let @/ = @@
 
     silent execute "Ack '". escape(@@, '.^$*+?()[{\|') ."'"
 
     let @@ = saved_unnamed_register
+  endfunction
+
+  function! PythonTestUnderCursor()
+    let filename = @%
+    let classNameLine = search('\<class\> .*:', 'bnW')
+    let className = matchstr(getline(classNameLine), '\<class\> \zs.*\ze(')
+    let funcLine = search('\<def\> .*:', 'bnW')
+    let funcName = matchstr(getline(funcLine), '\<def\> \zs.*\ze(')
+
+    execute "SlimuxShellRun nosetests ". filename .":" .className ."." .funcName
   endfunction
 
   function! YankOnFocusGain() "{{{
@@ -346,7 +355,7 @@ augroup END
     NeoBundle 'AndrewRadev/splitjoin.vim'
     NeoBundle 'majutsushi/tagbar' "{{{
       let g:tagbar_sort = 0
-      nmap <leader>t :TagbarToggle<CR>
+      nmap <leader>ta :TagbarToggle<CR>
     " }}}
     NeoBundle 'AndrewRadev/linediff.vim'
     NeoBundle 'editorconfig/editorconfig-vim'
@@ -911,6 +920,7 @@ augroup END
 "  eval vimscript by line or visual selection
   nmap <silent> <leader>e :call Source(line('.'), line('.'))<CR>
   vmap <silent> <leader>e :call Source(line('v'), line('.'))<CR>
+  nmap <leader>t :<c-u>call PythonTestUnderCursor()<cr>
 
   " grep operator (technically ack)
   nnoremap g/ :set operatorfunc=GrepOperator<cr>g@
