@@ -454,21 +454,22 @@ augroup END
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'javascript') "{{{
-    NeoBundleLazy 'marijnh/tern_for_vim', {
-      \ 'autoload': { 'filetypes': ['javascript', 'coffee'] },
-      \ 'build': {
-        \ 'mac': 'npm install',
-        \ 'unix': 'npm install',
-        \ 'cygwin': 'npm install',
-        \ 'windows': 'npm install',
-      \ },
-    \ }
-    " {{{
-        " tern config
-        let g:tern_map_keys=1
-        autocmd FileType javascript nmap <buffer> <leader>jd :TernDef<cr>
-        let g:tern_show_argument_hits='on_hold'
-    " }}}
+    " YouCompleteMe has support for this.
+    " NeoBundleLazy 'marijnh/tern_for_vim', {
+    "   \ 'autoload': { 'filetypes': ['javascript', 'coffee'] },
+    "   \ 'build': {
+    "     \ 'mac': 'npm install',
+    "     \ 'unix': 'npm install',
+    "     \ 'cygwin': 'npm install',
+    "     \ 'windows': 'npm install',
+    "   \ },
+    " \ }
+    " " {{{
+    "     " tern config
+    "     let g:tern_map_keys=1
+    "     autocmd FileType javascript nmap <buffer> <leader>jd :TernDef<cr>
+    "     let g:tern_show_argument_hits='on_hold'
+    " " }}}
     " NeoBundleLazy 'othree/tern_for_vim_coffee', { 'filetypes':['coffee'] }
     NeoBundle 'mohitleo9/vim-fidget',{
             \ 'build' : {
@@ -610,8 +611,8 @@ augroup END
     if s:settings.autocomplete_method == 'ycm' "{{{
       NeoBundle 'Valloric/YouCompleteMe', {
             \ 'build' : {
-            \    'unix' : './install.sh --clang-completer',
-            \    'mac' : './install.sh --clang-completer',
+            \    'unix' : './install.py --tern-completer',
+            \    'mac' : './install.py --tern-completer',
             \ },
       \} "{{{
 
