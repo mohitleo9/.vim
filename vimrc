@@ -387,11 +387,12 @@ augroup END
       " nmap <leader>tc :Tryit clj<cr>
     "}}}
     NeoBundle 'matchit.zip'
-    NeoBundle 'bling/vim-airline' "{{{
+    NeoBundle 'vim-airline/vim-airline' "{{{
       let g:airline#extensions#tabline#enabled = 1
       let g:airline_powerline_fonts = 1
       let g:airline_theme="luna"
     "}}}
+    NeoBundle "vim-airline/vim-airline-themes"
     NeoBundle 'tpope/vim-surround' "{{{
     " trial
       nmap s <Plug>Ysurround
@@ -948,6 +949,9 @@ augroup END
 
   " toggle paste
   map <F6> :set invpaste<CR>:set paste?<CR>
+
+  " :on
+  nnoremap gon :on<CR>
 
   " remap arrow keys
   nnoremap <left> :bprev<CR>
