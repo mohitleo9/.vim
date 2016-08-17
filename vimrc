@@ -186,6 +186,7 @@ augroup newFiletypes
   autocmd FileType coffee so ~/.vim/coffeeplugin.vim
   autocmd BufNewFile,BufRead *.handlebars set filetype=handlebars
   autocmd BufNewFile,BufRead *.wiki set filetype=mediawiki
+  autocmd filetype crontab setlocal nobackup nowritebackup
 augroup END
 "}}}
 
@@ -359,6 +360,11 @@ augroup END
   if count(s:settings.plugin_groups, 'core') "{{{
 
     NeoBundle 'AndrewRadev/splitjoin.vim'
+    NeoBundle 'AndrewRadev/sideways.vim' "{{{
+      nnoremap H :SidewaysLeft<cr>
+      nnoremap L :SidewaysRight<cr>
+    "}}"
+
     NeoBundle 'majutsushi/tagbar' "{{{
       let g:tagbar_sort = 0
       nmap <leader>ta :TagbarToggle<CR>
@@ -870,9 +876,6 @@ augroup END
     " NeoBundle 'lucapette/vim-textobj-underscore'
   endif "}}}
   if count(s:settings.plugin_groups, 'misc') "{{{
-    if exists('$TMUX')
-      NeoBundle 'christoomey/vim-tmux-navigator'
-    endif
     " NeoBundle 'kana/vim-vspec'
     NeoBundleLazy 'tpope/vim-scriptease', {'autoload':{'filetypes':['vim']}}
     NeoBundle 'chrisbra/csv.vim'
