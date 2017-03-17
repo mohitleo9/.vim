@@ -452,13 +452,12 @@ augroup END
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'javascript') "{{{
-    " YouCompleteMe has support for this.
     Plug 'mohitleo9/vim-fidget',{'do': 'npm install --production'}
-    Plug 'jelera/vim-javascript-syntax', {'for':'javascript'}
-    Plug 'maksimr/vim-jsbeautify', {'for': 'javascript'} "{{{
-      nnoremap <leader>fjs :call JsBeautify()<cr>
-    "}}}
-    Plug 'mxw/vim-jsx', {'for': 'javascript'}
+    Plug 'pangloss/vim-javascript', {'for': ['javascript', 'javascript.jsx']}
+    " Plug 'maksimr/vim-jsbeautify', {'for': 'javascript'} "{{{
+    "   nnoremap <leader>fjs :call JsBeautify()<cr>
+    " "}}}
+    Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
     Plug 'matthewsimo/angular-vim-snippets', {'for': ['coffee', 'javascript']}
     Plug 'burnettk/vim-angular', {'for': ['coffee', 'javascript']}
     Plug 'kchmck/vim-coffee-script', {'for': 'coffee'} "{{{
@@ -474,7 +473,7 @@ augroup END
     " }}}
 
     " othree/javascript-libraries-syntax.vim conflicts with coffeescript
-    Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','typescript']}
+    " Plug 'othree/javascript-libraries-syntax.vim', {'for':['javascript','typescript']}
   endif "}}}
   if count(s:settings.plugin_groups, 'ruby') "{{{
     Plug 'tpope/vim-rails'
