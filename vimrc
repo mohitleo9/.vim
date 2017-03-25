@@ -458,8 +458,8 @@ augroup END
     "   nnoremap <leader>fjs :call JsBeautify()<cr>
     " "}}}
     Plug 'mxw/vim-jsx', {'for': ['javascript', 'javascript.jsx']}
-    Plug 'matthewsimo/angular-vim-snippets', {'for': ['coffee', 'javascript']}
-    Plug 'burnettk/vim-angular', {'for': ['coffee', 'javascript']}
+    " Plug 'matthewsimo/angular-vim-snippets', {'for': ['coffee', 'javascript']}
+    " Plug 'burnettk/vim-angular', {'for': ['coffee', 'javascript']}
     Plug 'kchmck/vim-coffee-script', {'for': 'coffee'} "{{{
     " }}}
 
@@ -648,8 +648,8 @@ augroup END
       let g:gundo_width=30
       nnoremap <silent> <F5> :GundoToggle<CR>
     "}}}
-    Plug 'kien/ctrlp.vim', "{{{
-      let g:ctrlp_use_caching = 1
+    Plug 'ctrlpvim/ctrlp.vim', "{{{
+      " let g:ctrlp_use_caching = 1
       let g:ctrlp_clear_cache_on_exit=1
       let g:ctrlp_max_height=40
       let g:ctrlp_show_hidden=1
