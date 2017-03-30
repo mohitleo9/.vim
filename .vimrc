@@ -41,3 +41,8 @@ set nowrap
 if g:dotvim_settings.colorscheme ==# 'molokai'
   highlight Search guibg=#3E4D36 guifg=White
 endif
+
+if g:dotvim_settings.colorscheme ==# 'solarized'
+  " change matchtag for solor
+  highlight MatchTag ctermfg=black ctermbg=lightgreen guifg=lightgreen
+endif
