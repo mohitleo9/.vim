@@ -20,7 +20,7 @@ autocmd VimEnter,VimLeave * silent execute "!clearVim"
 
   " initialize default settings
   let s:settings = {}
-  let s:settings.default_indent = 4
+  let s:settings.default_indent = 2
   let s:settings.max_column = 120
   let s:settings.autocomplete_method = 'neocomplcache'
   let s:settings.enable_cursorcolumn = 0
@@ -437,7 +437,16 @@ augroup END
     Plug 'wavded/vim-stylus', {'for': 'styl'}
     Plug 'digitaltoad/vim-jade', {'for': 'jade'}
     Plug 'juvenn/mustache.vim', {'for': 'mustache'}
-    Plug 'gregsexton/MatchTag', {'for': ['html','xml']}
+    " Plug 'gregsexton/MatchTag', {'for': ['html','xml']}
+    Plug 'Valloric/MatchTagAlways' "{{{
+    let g:mta_filetypes = {
+          \ 'javascript.jsx': 1,
+          \ 'html' : 1,
+          \ 'xhtml' : 1,
+          \ 'xml' : 1,
+          \ 'jinja' : 1
+          \}
+    ""}}}
     Plug 'mattn/emmet-vim', {'for':['html','xml','xsl','xslt','xsd','css','sass','scss','less','mustache']} "{{{
       " function! s:zen_html_tab()
       "   let line = getline('.')
