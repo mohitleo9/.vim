@@ -560,12 +560,7 @@ augroup END
     Plug 'nsf/gocode', {'for': 'go'}
   endif "}}}
   if count(s:settings.plugin_groups, 'scm') "{{{
-    Plug 'mhinz/vim-signify' "{{{
-      let g:signify_update_on_focusgained = 1
-    "}}}
-    if executable('hg')
-      Plug 'bitbucket:ludovicchabant/vim-lawrencium'
-    endif
+    Plug 'airblade/vim-gitgutter'
     Plug 'tpope/vim-fugitive' "{{{
       nnoremap <silent> <leader>gs :Gstatus<CR>
       nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -814,20 +809,13 @@ augroup END
     " Plug 'vimwiki'
     " Plug 'rosenfeld/conque-term'
     Plug 'bufkill.vim'
-    Plug 'mhinz/vim-startify' "{{{
-      let g:startify_session_dir = '~/.vim/.cache/sessions'
-      let g:startify_change_to_vcs_root = 1
-      let g:startify_show_sessions = 1
-      nnoremap <F1> :Startify<cr>
-    "}}}
-    Plug 'scrooloose/syntastic' "{{{
-      let g:syntastic_coffee_coffeelint_args = "-f ~/.vim/bundle/vim-coffee-script/lintRules/coffeelint.json"
-      let g:syntastic_error_symbol = '✗'
-      let g:syntastic_style_error_symbol = '✠'
-      let g:syntastic_warning_symbol = '∆'
-      let g:syntastic_style_warning_symbol = '≈'
-      let g:syntastic_aggregate_errors = 1
-      let g:syntastic_javascript_checkers = ['eslint']
+    Plug 'mhinz/vim-startify'
+    Plug 'w0rp/ale' "{{{
+    let g:ale_sign_error = '✗'
+    let g:ale_sign_warning = '∆'
+    let g:ale_linters = {
+          \   'javascript': ['eslint'],
+          \}
     "}}}
 
   endif "}}}
