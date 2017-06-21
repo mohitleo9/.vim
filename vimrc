@@ -395,6 +395,7 @@ augroup END
 
     Plug 'vim-airline/vim-airline' "{{{
       let g:airline#extensions#tabline#enabled = 1
+      let g:airline#extensions#tabline#formatter = 'unique_tail'
       let g:airline_powerline_fonts = 1
       let g:airline_theme="luna"
     "}}}
@@ -449,7 +450,8 @@ augroup END
           \ 'jinja' : 1
           \}
     ""}}}
-    Plug 'mattn/emmet-vim', {'for':['html','xml','xsl','xslt','xsd','css','sass','scss','less','mustache']} "{{{
+    Plug 'mattn/emmet-vim', {'for':['html','xml','xsl','xslt','xsd','css','sass','scss','less','mustache', 'javascript.jsx']} "{{{
+
       " function! s:zen_html_tab()
       "   let line = getline('.')
       "   if match(line, '\v\s*.*>') !=# 0
@@ -578,6 +580,7 @@ augroup END
         autocmd BufReadPost fugitive://* set bufhidden=delete
       augroup END
     "}}}
+    Plug 'tpope/vim-rhubarb'
     Plug 'tpope/vim-git'
     Plug 'gregsexton/gitv'
       nnoremap <silent> <leader>gv :Gitv<CR>
@@ -596,6 +599,13 @@ augroup END
         let g:ycm_complete_in_comments_and_strings=1
         nnoremap <leader>jd :YcmCompleter GoTo<CR>
         let g:ycm_collect_identifiers_from_comments_and_strings = 1
+
+        " disable semnatic completoin because it's very slow
+        " but I still want smart jump and gotoDefinition
+        let g:ycm_filetype_specific_completion_to_disable = {
+              \ 'javascript': 1
+              \}
+
         " let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
         " let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
         " let g:ycm_filetype_blacklist={'unite': 1}
@@ -644,6 +654,8 @@ augroup END
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
+    Plug 'mhinz/vim-grepper'
+    Plug 'skywind3000/asyncrun.vim'
     Plug 'mileszs/ack.vim' "{{{
       if executable('ag')
         let g:ackprg = "ag --hidden --nogroup --column --smart-case --follow"
@@ -655,16 +667,16 @@ augroup END
       nnoremap <silent> <F5> :GundoToggle<CR>
     "}}}
     Plug 'ctrlpvim/ctrlp.vim', "{{{
-      " let g:ctrlp_use_caching = 1
-      let g:ctrlp_clear_cache_on_exit=1
+      " let g:ctrlp_use_caching = 0
+      " let g:ctrlp_clear_cache_on_exit=1
       let g:ctrlp_max_height=40
       let g:ctrlp_show_hidden=1
-      let g:ctrlp_follow_symlinks=1
-      let g:ctrlp_working_path_mode = 'ra'
-      let g:ctrlp_max_files=20000
-      let g:ctrlp_cache_dir='~/.vim/.cache/ctrlp'
-      let g:ctrlp_reuse_window='startify'
-      let g:ctrlp_extensions=['funky']
+      " let g:ctrlp_follow_symlinks=1
+      " let g:ctrlp_working_path_mode = 'ra'
+      " let g:ctrlp_max_files=20000
+      " let g:ctrlp_cache_dir='~/.vim/.cache/ctrlp'
+      " let g:ctrlp_reuse_window='startify'
+      " let g:ctrlp_extensions=['funky']
 
       let g:ctrlp_custom_ignore = {
             \ 'dir':  '\.git$\|\.hg$\|\.svn$',
@@ -799,6 +811,12 @@ augroup END
     " Plug 'kana/vim-vspec'
     Plug 'tpope/vim-scriptease', {'for':'vim'}
     Plug 'chrisbra/csv.vim'
+    Plug 'godlygeek/tabular' "{{{
+      nmap ga= :Tabularize /=<CR>
+      vmap ga= :Tabularize /=<CR>
+      nmap ga: :Tabularize /:<CR>
+      vmap ga: :Tabularize /:<CR>
+    " }}}"
     Plug 'tpope/vim-markdown', {'for': 'markdown'}
     Plug 'chikamichi/mediawiki.vim', {'for': 'mediawiki'}
     if executable('redcarpet') && executable('instant-markdown-d')
@@ -809,13 +827,16 @@ augroup END
     " Plug 'vimwiki'
     " Plug 'rosenfeld/conque-term'
     Plug 'bufkill.vim'
-    Plug 'mhinz/vim-startify'
+    Plug 'mhinz/vim-startify' "{{{
+    let g:startify_change_to_vcs_root = 1
+    "}}}
     Plug 'w0rp/ale' "{{{
     let g:ale_sign_error = '✗'
     let g:ale_sign_warning = '∆'
     let g:ale_linters = {
           \   'javascript': ['eslint'],
           \}
+    let g:ale_lint_on_text_changed = 'never'
     "}}}
 
   endif "}}}

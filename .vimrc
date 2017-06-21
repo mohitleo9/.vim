@@ -6,7 +6,11 @@ let g:dotvim_settings.autocomplete_method='ycm'
 let g:dotvim_settings.enable_cursorcolumn = 1
 let g:dotvim_settings.plugin_groups_include = ['python', 'javascript', 'web', 'clojure']
 " the theme
-let g:dotvim_settings.colorscheme = 'solarized'
+if has('gui_running')
+  let g:dotvim_settings.colorscheme = 'solarized'
+else
+  let g:dotvim_settings.colorscheme = 'molokai'
+endif
 let g:molokai_original = 1
 let g:quickhl_manual_enable_at_startup=1
 
