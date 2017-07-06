@@ -393,13 +393,13 @@ augroup END
     "}}}
     Plug 'matchit.zip'
 
-    Plug 'vim-airline/vim-airline' "{{{
-      let g:airline#extensions#tabline#enabled = 1
-      let g:airline#extensions#tabline#formatter = 'unique_tail'
-      let g:airline_powerline_fonts = 1
-      let g:airline_theme="luna"
-    "}}}
-    Plug 'vim-airline/vim-airline-themes'
+    " Plug 'vim-airline/vim-airline' "{{{
+    "   let g:airline#extensions#tabline#enabled = 1
+    "   let g:airline#extensions#tabline#formatter = 'unique_tail'
+    "   let g:airline_powerline_fonts = 1
+    "   let g:airline_theme="luna"
+    " "}}}
+    " Plug 'vim-airline/vim-airline-themes'
     Plug 'tpope/vim-surround' "{{{
     " trial
       nmap s <Plug>Ysurround
@@ -594,6 +594,7 @@ augroup END
       Plug 'Valloric/YouCompleteMe', {'do': './install.py --tern-completer'}  "{{{
 
         let g:ycm_semantic_triggers = {}
+        let g:ycm_key_detailed_diagnostics = ''
         let g:ycm_semantic_triggers.clojure = ['(']
 
         let g:ycm_complete_in_comments_and_strings=1
@@ -1008,10 +1009,10 @@ nnoremap <silent> p p`]
   "}}}
   Plug 'nanotech/jellybeans.vim'
   Plug 'tomasr/molokai'
-  " this plugin highilghts the color for hex value
-  Plug 'lilydjwg/colorizer' " {{{
-    let g:colorizer_nomap = 1
-  " }}}
+  " slowest shit piece
+  " Plug 'lilydjwg/colorizer' " {{{
+  "   let g:colorizer_nomap = 1
+  " " }}}
   Plug 'morhetz/gruvbox'
   Plug 'chriskempson/vim-tomorrow-theme'
   Plug 'chriskempson/base16-vim'
