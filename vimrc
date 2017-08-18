@@ -98,6 +98,7 @@ autocmd VimEnter,VimLeave * silent execute "!clearVim"
       execute line
     endfor
   endfunction "}}}
+
   function! Preserve(command) "{{{
     " preparation: save last search, and cursor position.
     let _s=@/
@@ -109,6 +110,7 @@ autocmd VimEnter,VimLeave * silent execute "!clearVim"
     let @/=_s
     call cursor(l, c)
   endfunction "}}}
+
   function! StripTrailingWhitespace() "{{{
     call Preserve("%s/\\s\\+$//e")
   endfunction "}}}
@@ -117,6 +119,7 @@ autocmd VimEnter,VimLeave * silent execute "!clearVim"
       call mkdir(expand(a:path))
     endif
   endfunction "}}}
+
   function! CloseWindowOrKillBuffer() "{{{
     let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
 
@@ -393,13 +396,13 @@ augroup END
     "}}}
     Plug 'matchit.zip'
 
-    " Plug 'vim-airline/vim-airline' "{{{
-    "   let g:airline#extensions#tabline#enabled = 1
-    "   let g:airline#extensions#tabline#formatter = 'unique_tail'
-    "   let g:airline_powerline_fonts = 1
-    "   let g:airline_theme="luna"
-    " "}}}
-    " Plug 'vim-airline/vim-airline-themes'
+    Plug 'vim-airline/vim-airline' "{{{
+      let g:airline#extensions#tabline#enabled = 1
+      let g:airline#extensions#tabline#formatter = 'unique_tail'
+      let g:airline_powerline_fonts = 1
+      let g:airline_theme="luna"
+    "}}}
+    Plug 'vim-airline/vim-airline-themes'
     Plug 'tpope/vim-surround' "{{{
     " trial
       nmap s <Plug>Ysurround
@@ -466,6 +469,8 @@ augroup END
   endif "}}}
   if count(s:settings.plugin_groups, 'javascript') "{{{
     Plug 'mohitleo9/vim-fidget',{'do': 'npm install --production'}
+    " Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
+    let g:tern#command = ['tern', '--port 60788']
     Plug 'pangloss/vim-javascript', {'for': ['javascript', 'javascript.jsx']}
     " Plug 'maksimr/vim-jsbeautify', {'for': 'javascript'} "{{{
     "   nnoremap <leader>fjs :call JsBeautify()<cr>
@@ -603,9 +608,9 @@ augroup END
 
         " disable semnatic completoin because it's very slow
         " but I still want smart jump and gotoDefinition
-        let g:ycm_filetype_specific_completion_to_disable = {
-              \ 'javascript': 1
-              \}
+        " let g:ycm_filetype_specific_completion_to_disable = {
+        "       \ 'javascript': 1
+        "       \}
 
         " let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
         " let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
