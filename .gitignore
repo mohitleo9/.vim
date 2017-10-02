@@ -1,4 +1,5 @@
 bundle
+.git
 !bundle/neobundle.vim
 .cache
 .netrwhist

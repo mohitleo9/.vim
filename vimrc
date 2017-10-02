@@ -470,7 +470,7 @@ augroup END
   if count(s:settings.plugin_groups, 'javascript') "{{{
     Plug 'mohitleo9/vim-fidget',{'do': 'npm install --production'}
     " Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
-    let g:tern#command = ['tern', '--port 60788']
+    " let g:tern#command = ['tern', '--port 60788']
     Plug 'pangloss/vim-javascript', {'for': ['javascript', 'javascript.jsx']}
     " Plug 'maksimr/vim-jsbeautify', {'for': 'javascript'} "{{{
     "   nnoremap <leader>fjs :call JsBeautify()<cr>
@@ -608,9 +608,9 @@ augroup END
 
         " disable semnatic completoin because it's very slow
         " but I still want smart jump and gotoDefinition
-        " let g:ycm_filetype_specific_completion_to_disable = {
-        "       \ 'javascript': 1
-        "       \}
+        let g:ycm_filetype_specific_completion_to_disable = {
+              \ 'javascript': 1
+              \}
 
         " let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
         " let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
@@ -661,12 +661,8 @@ augroup END
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
     Plug 'mhinz/vim-grepper'
+    command! -nargs=* Ack GrepperAg <args>
     Plug 'skywind3000/asyncrun.vim'
-    Plug 'mileszs/ack.vim' "{{{
-      if executable('ag')
-        let g:ackprg = "ag --hidden --nogroup --column --smart-case --follow"
-      endif
-    "}}}
     Plug 'sjl/gundo.vim', {'on':'GundoToggle'} "{{{
       let g:gundo_preview_bottom=1
       let g:gundo_width=30
@@ -818,10 +814,10 @@ augroup END
     Plug 'tpope/vim-scriptease', {'for':'vim'}
     Plug 'chrisbra/csv.vim'
     Plug 'godlygeek/tabular' "{{{
-      nmap ga= :Tabularize /=<CR>
-      vmap ga= :Tabularize /=<CR>
-      nmap ga: :Tabularize /:<CR>
-      vmap ga: :Tabularize /:<CR>
+      nmap ga= :Tabularize /=.*/<CR>
+      vmap ga= :Tabularize /=.*/<CR>
+      nmap ga: :Tabularize /:.*/<CR>
+      vmap ga: :Tabularize /:.*/<CR>
     " }}}"
     Plug 'tpope/vim-markdown', {'for': 'markdown'}
     Plug 'chikamichi/mediawiki.vim', {'for': 'mediawiki'}
@@ -879,8 +875,8 @@ augroup END
   " remap arrow keys
   nnoremap <left> :bprev<CR>
   nnoremap <right> :bnext<CR>
-  nnoremap <up> :tabnext<CR>
-  nnoremap <down> :tabprev<CR>
+  nnoremap <up> :BufSurfForward<CR>
+  nnoremap <down> :BufSurfBack<CR>
 
   " change cursor position in insert mode
   inoremap <C-h> <left>
