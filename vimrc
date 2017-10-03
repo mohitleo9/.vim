@@ -668,7 +668,7 @@ augroup END
       let g:grepper.quickfix = 1
       let g:grepper.open = 1
       let g:grepper.stop = 500
-      " let g:grepper.side = 1
+      let g:grepper.side = 1
 
     "}}}
     Plug 'skywind3000/asyncrun.vim'
