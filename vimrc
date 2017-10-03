@@ -394,7 +394,7 @@ augroup END
       " nmap <leader>tp :Tryit py<cr>
       " nmap <leader>tc :Tryit clj<cr>
     "}}}
-    Plug 'matchit.zip'
+    Plug 'vim-scripts/matchit.zip'
 
     Plug 'vim-airline/vim-airline' "{{{
       let g:airline#extensions#tabline#enabled = 1
@@ -660,8 +660,17 @@ augroup END
     "}}}
   endif "}}}
   if count(s:settings.plugin_groups, 'navigation') "{{{
-    Plug 'mhinz/vim-grepper'
-    command! -nargs=* Ack GrepperAg <args>
+    Plug 'mhinz/vim-grepper' "{{{
+      command! -nargs=* Ack GrepperAg <args>
+
+      let g:grepper = {}
+      let g:grepper.highlight=1
+      let g:grepper.quickfix = 1
+      let g:grepper.open = 1
+      let g:grepper.stop = 500
+      " let g:grepper.side = 1
+
+    "}}}
     Plug 'skywind3000/asyncrun.vim'
     Plug 'sjl/gundo.vim', {'on':'GundoToggle'} "{{{
       let g:gundo_preview_bottom=1
@@ -825,10 +834,6 @@ augroup END
       Plug 'suan/vim-instant-markdown', {'for':'markdown'}
     endif
     Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-    " Plug 'chrisbra/vim_faq'
-    " Plug 'vimwiki'
-    " Plug 'rosenfeld/conque-term'
-    Plug 'bufkill.vim'
     Plug 'mhinz/vim-startify' "{{{
     let g:startify_change_to_vcs_root = 1
     "}}}
