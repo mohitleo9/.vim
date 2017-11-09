@@ -396,13 +396,13 @@ augroup END
     "}}}
     Plug 'vim-scripts/matchit.zip'
 
-    Plug 'vim-airline/vim-airline' "{{{
-      let g:airline#extensions#tabline#enabled = 1
-      let g:airline#extensions#tabline#formatter = 'unique_tail'
-      let g:airline_powerline_fonts = 1
-      let g:airline_theme="luna"
-    "}}}
-    Plug 'vim-airline/vim-airline-themes'
+    " Plug 'vim-airline/vim-airline' "{{{
+    "   let g:airline#extensions#tabline#enabled = 1
+    "   let g:airline#extensions#tabline#formatter = 'unique_tail'
+    "   let g:airline_powerline_fonts = 1
+    "   let g:airline_theme="luna"
+    " "}}}
+    " Plug 'vim-airline/vim-airline-themes'
     Plug 'tpope/vim-surround' "{{{
     " trial
       nmap s <Plug>Ysurround
@@ -599,7 +599,7 @@ augroup END
       Plug 'Valloric/YouCompleteMe', {'do': './install.py --tern-completer'}  "{{{
 
         let g:ycm_semantic_triggers = {}
-        let g:ycm_key_detailed_diagnostics = ''
+        " let g:ycm_key_detailed_diagnostics = ''
         let g:ycm_semantic_triggers.clojure = ['(']
 
         let g:ycm_complete_in_comments_and_strings=1
@@ -667,7 +667,7 @@ augroup END
       let g:grepper.highlight=1
       let g:grepper.quickfix = 1
       let g:grepper.open = 1
-      let g:grepper.stop = 500
+      let g:grepper.stop = 1000
       let g:grepper.side = 1
 
     "}}}
@@ -828,6 +828,12 @@ augroup END
       nmap ga: :Tabularize /:.*/<CR>
       vmap ga: :Tabularize /:.*/<CR>
     " }}}"
+   "  Plug 'tommcdo/vim-lion', {'commit': '08d5e714e87305c4b42f17db373af8244293e423'} "{{{
+   "    let g:lion_squeeze_spaces=1
+   "    let g:lion_map_right="ga"
+   "    let g:lion_map_left="gA"
+   " "}}}
+
     Plug 'tpope/vim-markdown', {'for': 'markdown'}
     Plug 'chikamichi/mediawiki.vim', {'for': 'mediawiki'}
     if executable('redcarpet') && executable('instant-markdown-d')
